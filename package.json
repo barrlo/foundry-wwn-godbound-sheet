@@ -4,7 +4,7 @@
   "description": "Barrlo's Godbound Sheet in WWN",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint scripts"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,11 @@
   },
   "homepage": "https://github.com/barrlo/foundry-wwn-godbound-sheet#readme",
   "devDependencies": {
-    "@league-of-foundry-developers/foundry-vtt-types": "^12.331.1-beta"
+    "@league-of-foundry-developers/foundry-vtt-types": "^12.331.1-beta",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "prettier": "^3.3.3"
   }
 }

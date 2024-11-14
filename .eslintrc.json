@@ -1,0 +1,29 @@
+{
+  "extends": [
+    "plugin:import/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "settings": {
+    "import/resolver": {
+      "node": true
+    }
+  },
+  "rules": {
+    "curly": 2,
+    "no-console": 2,
+    "no-unused-expressions": [
+      2,
+      {
+        "allowShortCircuit": true
+      }
+    ],
+    "no-unused-vars": 2,
+    "import/no-unused-modules": [
+      2,
+      {
+        "missingExports": true,
+        "unusedExports": true
+      }
+    ]
+  }
+}
