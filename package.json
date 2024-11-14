@@ -1,0 +1,25 @@
+{
+  "name": "foundry-wwn-godbound-sheet",
+  "version": "1.0.0",
+  "description": "Barrlo's Godbound Sheet in WWN",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/barrlo/foundry-wwn-godbound-sheet.git"
+  },
+  "keywords": [
+    "foundry"
+  ],
+  "author": "Barrlo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/barrlo/foundry-wwn-godbound-sheet/issues"
+  },
+  "homepage": "https://github.com/barrlo/foundry-wwn-godbound-sheet#readme",
+  "devDependencies": {
+    "@league-of-foundry-developers/foundry-vtt-types": "^12.331.1-beta"
+  }
+}
