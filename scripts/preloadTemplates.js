@@ -8,7 +8,7 @@ export const preloadHandlebarsTemplates = async function () {
         'modules/foundry-wwn-godbound-sheet/scripts/templates/actors/partials/character-attributes-tab.html',
         'modules/foundry-wwn-godbound-sheet/scripts/templates/actors/partials/character-spells-tab.html',
         'modules/foundry-wwn-godbound-sheet/scripts/templates/actors/partials/character-inventory-tab.html',
-        'modules/foundry-wwn-godbound-sheet/scripts/templates/actors/partials/actor-effects.html',
+        'modules/foundry-wwn-godbound-sheet/scripts/templates/actors/partials/character-projects.html',
         'modules/foundry-wwn-godbound-sheet/scripts/templates/actors/partials/character-notes-tab.html'
     ];
     return loadTemplates(templatePaths);
