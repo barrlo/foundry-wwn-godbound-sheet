@@ -344,91 +344,48 @@
     </div>
     <div class="inventory-right">
       <div class="item-titles flexrow">
-        <label>{{localize 'WWN.Encumbrance'}}</label>
-      </div>
-      <div class="readied-group">
-        <div class="flexrow readied-subgroup">
-          <label class="readied-header">{{localize 'WWN.items.readied'}}</label>
-          <div class="readied">
-            <input name="system.encumbrance.readied.value" type="number" value="{{system.encumbrance.readied.value}}"
-              data-dtype="Number" disabled />/
-            <input name="system.encumbrance.readied.max" type="number" value="{{system.encumbrance.readied.max}}"
-              data-dtype="Number" disabled />
-          </div>
-        </div>
-        <div class="flexrow readied-subgroup">
-          <label class="readied-header">{{localize 'WWN.items.stowed'}}</label>
-          <div class="readied">
-            <input name="system.encumbrance.stowed.value" type="number" value="{{system.encumbrance.stowed.value}}"
-              data-dtype="Number" disabled />/
-            <input name="system.encumbrance.stowed.max" type="number" value="{{system.encumbrance.stowed.max}}"
-              data-dtype="Number" disabled />
-          </div>
-        </div>
-      </div>
-      <div class="item-titles flexrow">
         <label>
           {{localize 'WWN.items.Currency'}}
-          <a data-action="currency-adjust" title="{{localize " WWN.items.adjustCurrency"}}" class="currency-adjust">
-            <i class="fas fa-balance-scale"></i>
-          </a>
         </label>
       </div>
       <div class="flexrow currency-group">
         <div class="flexrow currency-subgroup">
-          <label class="currency-header" title="{{localize 'WWN.items.CP.long'}}">{{localize
-            'WWN.items.CP.short'}}</label>
-          <input class="currency" name="system.currency.cp" type="number" value="{{system.currency.cp}}"
-            data-dtype="Number" placeholder="0" />
-        </div>
-        <div class="flexrow currency-subgroup">
-          <label class="currency-header" title="{{localize 'WWN.items.SP.long'}}">{{localize
-            'WWN.items.SP.short'}}</label>
-          <input class="currency" name="system.currency.sp" type="number" value="{{system.currency.sp}}"
-            data-dtype="Number" placeholder="0" />
-        </div>
-        {{#if (eq config.currencyTypes "currencybx")}}
-        <div class="flexrow currency-subgroup">
-          <label class="currency-header" title="{{localize 'WWN.items.EP.long'}}">{{localize
-            'WWN.items.EP.short'}}</label>
-          <input class="currency" name="system.currency.ep" type="number" value="{{system.currency.ep}}"
-            data-dtype="Number" placeholder="0" />
-        </div>
-        {{/if}}
-        <div class="flexrow currency-subgroup">
-          <label class="currency-header" title="{{localize 'WWN.items.GP.long'}}">{{localize
-            'WWN.items.GP.short'}}</label>
-          <input class="currency" name="system.currency.gp" type="number" value="{{system.currency.gp}}"
-            data-dtype="Number" placeholder="0" />
-        </div>
-        {{#if (eq config.currencyTypes "currencybx")}}
-        <div class="flexrow currency-subgroup">
-          <label class="currency-header" title="{{localize 'WWN.items.PP.long'}}">{{localize
-            'WWN.items.PP.short'}}</label>
-          <input class="currency" name="system.currency.pp" type="number" value="{{system.currency.pp}}"
-            data-dtype="Number" placeholder="0" />
-        </div>
-        {{/if}}
-        <div class="flexrow currency-subgroup">
-          <label class="currency-header" title="Personal Treasure">Personal</label>
-          <input class="currency" name="system.personalTreasure" title="Personal Treasure" type="number"
-            value="{{system.personalTreasure}}" data-dtype="Number" disabled />
-        </div>
-        <div class="flexrow currency-subgroup currency-buffer">
-          <label class="currency-header">Bank</label>
+          <label class="currency-header">Wealth</label>
           <input class="currency" name="system.currency.bank" type="number" value="{{system.currency.bank}}"
             data-dtype="Number" placeholder="0" />
         </div>
-        <div class="flexrow currency-subgroup currency-buffer">
-          <label class="currency-header" title="Total Currency">Total</label>
-          <input class="currency" name="system.currency.total" type="number" value="{{system.currency.total}}"
-            data-dtype="Number" disabled />
+      </div>
+      <div class="item-titles flexrow" style="margin-top: 15px">
+        <label>Damage Chart</label>
+      </div>
+      <div style="display: grid; grid-template-columns: 50% 50%; margin: 3px 0 0 4px">
+        <div style="text-align: center">Roll (per die)</div>
+        <div style="text-align: center">Damage</div>
+      </div>
+      <div class="readied-group">
+        <div class="flexrow readied-subgroup">
+          <label class="readied-header">1 or less</label>
+          <div class="readied">
+            <input name="system.encumbrance.readied.value" type="number" value="0" data-dtype="Number" disabled />
+          </div>
         </div>
-        <div class="flexrow currency-subgroup">
-          <label class="currency-header" title="{{localize 'WWN.items.TreasureSP'}}">{{localize
-            'WWN.items.Treasure'}}</label>
-          <input class="currency" name="system.treasure" type="number" value="{{system.treasure}}" data-dtype="Number"
-            disabled />
+        <div class="flexrow readied-subgroup">
+          <label class="readied-header">2 - 5</label>
+          <div class="readied">
+            <input name="system.encumbrance.stowed.value" type="number" value="1" data-dtype="Number" disabled />
+          </div>
+        </div>
+        <div class="flexrow readied-subgroup">
+          <label class="readied-header">6 - 9</label>
+          <div class="readied">
+            <input name="system.encumbrance.stowed.value" type="number" value="2" data-dtype="Number" disabled />
+          </div>
+        </div>
+        <div class="flexrow readied-subgroup">
+          <label class="readied-header">10 or more</label>
+          <div class="readied">
+            <input name="system.encumbrance.stowed.value" type="number" value="4" data-dtype="Number" disabled />
+          </div>
         </div>
       </div>
     </div>
