@@ -1,6 +1,5 @@
 import {BarrloActor} from './entity.js';
 import {BarrloEntityTweaks} from '../dialog/entity-tweaks.js';
-import {onAddProjectClick, onDeleteProjectClick} from '../projects.mjs';
 
 export class BarrloActorSheet extends ActorSheet {
     constructor(...args) {
@@ -106,9 +105,6 @@ export class BarrloActorSheet extends ActorSheet {
 
     activateListeners(html) {
         super.activateListeners(html);
-
-        html.find('#add-project-button').click(ev => onAddProjectClick(ev, this.actor));
-        html.find('#delete-project-button').click(ev => onDeleteProjectClick(ev, this.actor));
 
         // Item summaries
         html.find('.item .item-name h4').click(event => this._onItemSummary(event));

@@ -2,6 +2,7 @@ import {BarrloActorSheet} from './actor-sheet.js';
 import {BarrloCharacterModifiers} from '../dialog/character-modifiers.js';
 import {BarrloAdjustCurrency} from '../dialog/adjust-currency.js';
 import {BarrloCharacterCreator} from '../dialog/character-creation.js';
+import {onAddProjectClick, onDeleteProjectClick, onProjectInputChange} from '../projects.mjs';
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -276,6 +277,10 @@ export class BarrloActorSheetCharacter extends BarrloActorSheet {
      */
     activateListeners(html) {
         super.activateListeners(html);
+
+        html.find('.add-project-button').on('click', ev => onAddProjectClick(ev, this.actor));
+        html.find('.delete-project-button').on('click', ev => onDeleteProjectClick(ev, this.actor));
+        html.find('.project-name-input').on('change', ev => onProjectInputChange(ev, this.actor));
 
         html.find('.ability-score .attribute-name a').click(ev => {
             let actorObject = this.actor;

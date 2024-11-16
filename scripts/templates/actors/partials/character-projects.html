@@ -4,7 +4,7 @@
         <div class="effect-source"></div>
         <div class="effect-source"></div>
         <div class="item-controls effect-controls flexrow">
-            <a id="add-project-button" title="{{localize 'WWN.EffectCreate'}}">
+            <a class="add-project-button" title="{{localize 'WWN.EffectCreate'}}">
                 <i class="fas fa-plus"></i> {{localize "WWN.Add"}}
             </a>
         </div>
@@ -13,7 +13,7 @@
         {{#each system.projects as |project|}}
         <li class="item flexrow" data-project-id="{{project.id}}">
             <label>Project Name</label>
-            <input type="text" value="{{project.name}}" />
+            <input class="project-name-input" type="text" value="{{project.name}}" data-field="name" />
             <label>Difficulty</label>
             <select>
                 {{#select project.difficulty}}
@@ -35,7 +35,7 @@
                 {{/select}}
             </select>
             <div class="item-controls effect-controls flexrow">
-                <a id="delete-project-button" title="{{localize 'WWN.EffectDelete'}}">
+                <a class="delete-project-button" title="{{localize 'WWN.EffectDelete'}}">
                     <i class="fas fa-trash"></i>
                 </a>
             </div>

@@ -1,7 +1,7 @@
 export function onAddProjectClick(event, owner) {
     event.preventDefault();
 
-    const addProject = [...owner.system.projects, {
+    const projects = [...owner.system.projects, {
         completed: false,
         cost: 0,
         difficulty: '',
@@ -13,7 +13,7 @@ export function onAddProjectClick(event, owner) {
         resistance: 0,
         scope: ''
     }];
-    owner.update({'system.projects': addProject});
+    owner.update({'system.projects': projects});
 }
 
 export function onDeleteProjectClick(event, owner) {
@@ -21,11 +21,27 @@ export function onDeleteProjectClick(event, owner) {
 
     const a = event.currentTarget;
     const li = a.closest('li');
-    const deleteProject = [...owner.system.projects];
-    const deleteIndex = deleteProject.findIndex(proj => proj.id === li.dataset.projectId);
+    const projects = [...owner.system.projects];
+    const index = projects.findIndex(proj => proj.id === li.dataset.projectId);
 
-    deleteProject.splice(deleteIndex, 1);
-    owner.update({'system.projects': deleteProject});
+    projects.splice(index, 1);
+    owner.update({'system.projects': projects});
+}
+
+export function onProjectInputChange(event, owner) {
+    event.preventDefault();
+
+    const input = event.currentTarget;
+    const li = input.closest('li');
+    const projects = [...owner.system.projects];
+    const index = projects.findIndex(proj => proj.id === li.dataset.projectId);
+    const updatedProject = {
+        ...projects[index],
+        [input.dataset.field]: input.value
+    };
+
+    projects.splice(index, 1, updatedProject);
+    owner.update({'system.projects': projects});
 }
 
 // export function onEditProjectClick(event, owner) {
