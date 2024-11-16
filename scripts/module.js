@@ -9,6 +9,12 @@ Hooks.once('init', async function () {
     });
 
     await preloadHandlebarsTemplates();
+
+    Handlebars.registerHelper('select', function (value, options) {
+        const $el = $('<select />').html(options.fn(this));
+        $el.find('[value="' + value + '"]').attr({selected: 'selected'});
+        return $el.html();
+    });
 });
 
 Hooks.once('ready', async function () {});

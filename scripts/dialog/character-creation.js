@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import {BarrloActor} from '../actor/entity.js';
 import {BarrloDice} from '../dice.js';
 

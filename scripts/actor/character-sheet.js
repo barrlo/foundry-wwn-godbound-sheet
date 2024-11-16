@@ -2,6 +2,7 @@ import {BarrloActorSheet} from './actor-sheet.js';
 import {BarrloCharacterModifiers} from '../dialog/character-modifiers.js';
 import {BarrloAdjustCurrency} from '../dialog/adjust-currency.js';
 import {BarrloCharacterCreator} from '../dialog/character-creation.js';
+import {onManageProject} from '../projects.mjs';
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -43,14 +44,23 @@ export class BarrloActorSheetCharacter extends BarrloActorSheet {
         let [items, weapons, armors, abilities, spells, arts, foci, skills] = this.actor.items.reduce(
             (arr, item) => {
                 // Classify items into types
-                if (item.type === 'item') arr[0].push(item);
-                else if (item.type === 'weapon') arr[1].push(item);
-                else if (item.type === 'armor') arr[2].push(item);
-                else if (item.type === 'ability') arr[3].push(item);
-                else if (item.type === 'spell') arr[4].push(item);
-                else if (item.type === 'art') arr[5].push(item);
-                else if (item.type === 'focus') arr[6].push(item);
-                else if (item.type === 'skill') arr[7].push(item);
+                if (item.type === 'item') {
+                    arr[0].push(item);
+                } else if (item.type === 'weapon') {
+                    arr[1].push(item);
+                } else if (item.type === 'armor') {
+                    arr[2].push(item);
+                } else if (item.type === 'ability') {
+                    arr[3].push(item);
+                } else if (item.type === 'spell') {
+                    arr[4].push(item);
+                } else if (item.type === 'art') {
+                    arr[5].push(item);
+                } else if (item.type === 'focus') {
+                    arr[6].push(item);
+                } else if (item.type === 'skill') {
+                    arr[7].push(item);
+                }
                 return arr;
             },
             [[], [], [], [], [], [], [], []]
@@ -61,8 +71,12 @@ export class BarrloActorSheetCharacter extends BarrloActorSheet {
         var slots = {};
         for (var i = 0; i < spells.length; i++) {
             const lvl = spells[i].system.lvl;
-            if (!sortedSpells[lvl]) sortedSpells[lvl] = [];
-            if (!slots[lvl]) slots[lvl] = 0;
+            if (!sortedSpells[lvl]) {
+                sortedSpells[lvl] = [];
+            }
+            if (!slots[lvl]) {
+                slots[lvl] = 0;
+            }
             slots[lvl] += spells[i].system.memorized;
             sortedSpells[lvl].push(spells[i]);
         }
@@ -80,7 +94,9 @@ export class BarrloActorSheetCharacter extends BarrloActorSheet {
         let sortedArts = {};
         for (var i = 0; i < arts.length; i++) {
             let source = arts[i].system.source;
-            if (!sortedArts[source]) sortedArts[source] = [];
+            if (!sortedArts[source]) {
+                sortedArts[source] = [];
+            }
             sortedArts[source].push(arts[i]);
         }
 
@@ -133,15 +149,13 @@ export class BarrloActorSheetCharacter extends BarrloActorSheet {
         // Prepare owned items
         this._prepareItems(data);
 
-        data.config.initiative = game.settings.get('wwn', 'initiative') != 'group';
+        data.config.initiative = game.settings.get('wwn', 'initiative') !== 'group';
         data.config.showMovement = game.settings.get('wwn', 'showMovement');
         data.config.currencyTypes = game.settings.get('wwn', 'currencyTypes');
-        // data.config.replaceStrainWithWounds = game.settings.get('wwn', 'replaceStrainWithWounds');
-        // data.config.xpPerChar = game.settings.get('wwn', 'xpPerChar');
-        // data.config.medRange = game.settings.get('wwn', 'medRange');
 
         data.enrichedBiography = await TextEditor.enrichHTML(this.object.system.details.biography, {async: true});
         data.enrichedNotes = await TextEditor.enrichHTML(this.object.system.details.notes, {async: true});
+
         return data;
     }
 
@@ -225,7 +239,7 @@ export class BarrloActorSheetCharacter extends BarrloActorSheet {
 
     _popLang(table, lang) {
         const data = this.actor.system;
-        let update = data[table].value.filter(el => el != lang);
+        let update = data[table].value.filter(el => el !== lang);
         let newData = {};
         newData[table] = {value: update};
         return this.actor.update({system: newData});
@@ -264,6 +278,8 @@ export class BarrloActorSheetCharacter extends BarrloActorSheet {
     activateListeners(html) {
         super.activateListeners(html);
 
+        html.find('.effect-control').click(ev => onManageProject(ev, this.actor));
+
         html.find('.ability-score .attribute-name a').click(ev => {
             let actorObject = this.actor;
             let element = ev.currentTarget;
@@ -283,7 +299,7 @@ export class BarrloActorSheetCharacter extends BarrloActorSheet {
 
         html.find('.inventory .item-titles .item-caret').click(ev => {
             let items = $(ev.currentTarget.parentElement.parentElement).children('.item-list');
-            if (items.css('display') == 'none') {
+            if (items.css('display') === 'none') {
                 let el = $(ev.currentTarget).find('.fas.fa-caret-right');
                 el.removeClass('fa-caret-right');
                 el.addClass('fa-caret-down');
@@ -301,7 +317,9 @@ export class BarrloActorSheetCharacter extends BarrloActorSheet {
         });
 
         // Everything below here is only needed if the sheet is editable
-        if (!this.options.editable) return;
+        if (!this.options.editable) {
+            return;
+        }
 
         // Update Inventory Item
         html.find('.item-edit').click(ev => {
@@ -383,19 +401,19 @@ export class BarrloActorSheetCharacter extends BarrloActorSheet {
             ev.preventDefault();
             const li = $(ev.currentTarget).parents('.item');
             const skill = this.actor.items.get(li.data('itemId'));
-            if (skill.type == 'skill') {
+            if (skill.type === 'skill') {
                 const rank = skill.system.ownedLevel;
                 // Check if char has sufficient level
                 if (rank > 0) {
                     const lvl = this.actor.system.details.level;
                     if (!game.settings.get('wwn', 'noSkillLevelReq')) {
-                        if (rank == 1 && lvl < 3) {
+                        if (rank === 1 && lvl < 3) {
                             ui.notifications?.error('Must be at least level 3 (edit manually to override)');
                             return;
-                        } else if (rank == 2 && lvl < 6) {
+                        } else if (rank === 2 && lvl < 6) {
                             ui.notifications?.error('Must be at least level 6 (edit manually to override)');
                             return;
-                        } else if (rank == 3 && lvl < 9) {
+                        } else if (rank === 3 && lvl < 9) {
                             ui.notifications?.error('Must be at least level 9 (edit manually to override)');
                             return;
                         } else if (rank > 3) {
@@ -425,7 +443,7 @@ export class BarrloActorSheetCharacter extends BarrloActorSheet {
         // Show / hide skill buttons
         html.find('.lock-skills').click(ev => {
             ev.preventDefault();
-            const lock = $(ev.currentTarget).data('type') == 'lock' ? true : false;
+            const lock = $(ev.currentTarget).data('type') === 'lock';
             if (lock) {
                 html.find('.lock-skills.unlock').css('display', 'inline-block');
                 html.find('.lock-skills.lock').hide();
