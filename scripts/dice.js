@@ -110,8 +110,12 @@ export class BarrloDice {
             rollMode = game.user.isGM ? 'selfroll' : 'blindroll';
         }
 
-        if (['gmroll', 'blindroll'].includes(rollMode)) chatData['whisper'] = ChatMessage.getWhisperRecipients('GM');
-        if (rollMode === 'selfroll') chatData['whisper'] = [game.user.id];
+        if (['gmroll', 'blindroll'].includes(rollMode)) {
+            chatData['whisper'] = ChatMessage.getWhisperRecipients('GM');
+        }
+        if (rollMode === 'selfroll') {
+            chatData['whisper'] = [game.user.id];
+        }
         if (rollMode === 'blindroll') {
             chatData['blind'] = true;
             data.roll.blindroll = true;
@@ -126,12 +130,10 @@ export class BarrloDice {
                     chatData.content = content;
                     // Dice So Nice
                     if (game.dice3d) {
-                        game.dice3d
-                            .showForRoll(roll, game.user, true, chatData.whisper, chatData.blind)
-                            .then(displayed => {
-                                ChatMessage.create(chatData);
-                                resolve(roll);
-                            });
+                        game.dice3d.showForRoll(roll, game.user, true, chatData.whisper, chatData.blind).then(() => {
+                            ChatMessage.create(chatData);
+                            resolve(roll);
+                        });
                     } else {
                         chatData.sound = CONFIG.sounds.dice;
                         ChatMessage.create(chatData);
@@ -170,7 +172,9 @@ export class BarrloDice {
     static spendAmmo(attData) {
         const isNPC = attData.actor.type !== 'character';
         const ammo = attData.item.system.ammo;
-        if (isNPC || !ammo) return;
+        if (isNPC || !ammo) {
+            return;
+        }
         const ammoItem = attData.actor.items.find(
             item => item.name.toLowerCase().includes(ammo.toLowerCase()) && item.system.charges.value != null
         );
@@ -228,7 +232,9 @@ export class BarrloDice {
         }
 
         // Optionally include a situational bonus
-        if (form !== null && form.bonus.value) parts.push(form.bonus.value);
+        if (form !== null && form.bonus.value) {
+            parts.push(form.bonus.value);
+        }
 
         let templateData = {
             title: title,
@@ -251,8 +257,12 @@ export class BarrloDice {
             rollMode = game.user.isGM ? 'selfroll' : 'blindroll';
         }
 
-        if (['gmroll', 'blindroll'].includes(rollMode)) chatData['whisper'] = ChatMessage.getWhisperRecipients('GM');
-        if (rollMode === 'selfroll') chatData['whisper'] = [game.user.id];
+        if (['gmroll', 'blindroll'].includes(rollMode)) {
+            chatData['whisper'] = ChatMessage.getWhisperRecipients('GM');
+        }
+        if (rollMode === 'selfroll') {
+            chatData['whisper'] = [game.user.id];
+        }
         if (rollMode === 'blindroll') {
             chatData['blind'] = true;
             data.roll.blindroll = true;
@@ -338,7 +348,7 @@ export class BarrloDice {
             cancel: {
                 icon: '<i class="fas fa-times"></i>',
                 label: game.i18n.localize('WWN.Cancel'),
-                callback: html => {}
+                callback: () => {}
             }
         };
 
@@ -408,7 +418,7 @@ export class BarrloDice {
             cancel: {
                 icon: '<i class="fas fa-times"></i>',
                 label: game.i18n.localize('WWN.Cancel'),
-                callback: html => {}
+                callback: () => {}
             }
         };
 
