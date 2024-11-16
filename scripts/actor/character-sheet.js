@@ -284,6 +284,7 @@ export class BarrloActorSheetCharacter extends BarrloActorSheet {
         html.find('.project-description-input').on('change', evt => onProjectInputChange(evt, this.actor, 'description'));
         html.find('.project-difficulty-select').on('change', evt => onProjectInputChange(evt, this.actor, 'difficulty'));
         html.find('.project-scope-select').on('change', evt => onProjectInputChange(evt, this.actor, 'scope'));
+        html.find('.project-resistance-input').on('change', evt => onProjectInputChange(evt, this.actor, 'resistance'));
 
         html.find('.ability-score .attribute-name a').click(ev => {
             let actorObject = this.actor;

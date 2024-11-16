@@ -14,11 +14,11 @@
 }
 
 .project-card .project-name-input {
-    border: 1px solid black;
-    border-radius: 3px;
+    border: 1px solid black !important;
+    border-radius: 3px !important;
     height: 30px;
     padding: 0 3px;
-    text-align: start;
+    text-align: start !important;
 }
 
 .project-card .delete-project-button {

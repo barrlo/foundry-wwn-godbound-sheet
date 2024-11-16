@@ -11,7 +11,7 @@
         {{#each system.projects as |project|}}
         <li class="project-card" data-project-id="{{project.id}}">
             <div class="flexrow">
-                <label for="project-name-input">Project Name:</label>
+                <label for="project-name-input" class="project-name-label">Project Name:</label>
                 <input id="project-name-input" class="project-name-input" type="text" value="{{project.name}}" />
                 <div class="delete-project-button" title="Delete">
                     <i class="fas fa-trash"></i>
@@ -19,26 +19,45 @@
             </div>
             <label for="project-description-input">Description:</label>
             <textarea id="project-description-input" class="project-description-input" rows="4" cols="50">{{project.description}}</textarea>
-            <label for="project-difficulty-select">Difficulty:</label>
-            <select id="project-difficulty-select" class="project-difficulty-select">
-                {{#select project.difficulty}}
-                <option value=""></option>
-                <option value="plausible">Plausible</option>
-                <option value="improbable">Improbable</option>
-                <option value="impossible">Impossible</option>
-                {{/select}}
-            </select>
-            <label for="project-scope-select">Scope:</label>
-            <select id="project-scope-select" class="project-scope-select">
-                {{#select project.scope}}
-                <option value=""></option>
-                <option value="village">Village</option>
-                <option value="city">City</option>
-                <option value="region">Region</option>
-                <option value="nation">Nation</option>
-                <option value="realm">Realm</option>
-                {{/select}}
-            </select>
+            <div class="flexrow">
+                <label for="project-difficulty-select">Difficulty:</label>
+                <select id="project-difficulty-select" class="project-difficulty-select">
+                    {{#select project.difficulty}}
+                    <option value=""></option>
+                    <option value="plausible">Plausible</option>
+                    <option value="improbable">Improbable</option>
+                    <option value="impossible">Impossible</option>
+                    {{/select}}
+                </select>
+                <label for="project-scope-select">Scope:</label>
+                <select id="project-scope-select" class="project-scope-select">
+                    {{#select project.scope}}
+                    <option value=""></option>
+                    <option value="village">Village</option>
+                    <option value="city">City</option>
+                    <option value="region">Region</option>
+                    <option value="nation">Nation</option>
+                    <option value="realm">Realm</option>
+                    {{/select}}
+                </select>
+                <label for="project-resistance-input">Resistance:</label>
+                <input id="project-resistance-input" class="project-resistance-input" type="number"
+                       value="{{project.resistance}}" />
+            </div>
+            <div class="flexrow">
+                <label for="project-dominion-input">Dominion:</label>
+                <input id="project-dominion-input" class="project-dominion-input" type="number"
+                       value="{{project.dominion}}" />
+                <label for="project-influence-input">Influence:</label>
+                <input id="project-influence-input" class="project-influence-input" type="number"
+                       value="{{project.influence}}" />
+                <label for="project-cost-input">Cost:</label>
+                <input id="project-cost-input" class="project-cost-input" type="number" value="{{project.cost}}"
+                       disabled />
+                <label for="project-remaining-input">Remaining:</label>
+                <input id="project-remaining-input" class="project-remaining-input" type="number"
+                       value="{{project.remaining}}" disabled />
+            </div>
         </li>
         {{/each}}
     </ol>
