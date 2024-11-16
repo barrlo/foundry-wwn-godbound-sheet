@@ -6,9 +6,15 @@ export function onManageProject(event, owner) {
     switch (a.dataset.action) {
         case 'create':
             const addProject = [...owner.system.projects, {
-                id: `${owner.name}-project-${owner.system.projects.length + 1}`,
-                name: `new project ${owner.system.projects.length + 1}`,
+                completed: false,
+                cost: 0,
                 difficulty: '',
+                dominion: 0,
+                id: `${owner.name}-project-${owner.system.projects.length + 1}`,
+                influence: 0,
+                name: 'new project',
+                remaining: 0,
+                resistance: 0,
                 scope: ''
             }];
 
