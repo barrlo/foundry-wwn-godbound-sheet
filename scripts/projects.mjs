@@ -23,14 +23,14 @@ export function onAddProjectClick(event, owner) {
 
     const projects = [...owner.system.projects, {
         completed: false,
-        cost: 1,
+        cost: 0,
         description: '',
         difficulty: '',
         dominion: 0,
         id: `${owner.name}-project-${owner.system.projects.length + 1}`,
         influence: 0,
-        name: 'new project',
-        remaining: 1,
+        name: '',
+        remaining: 0,
         resistance: 0,
         scope: ''
     }];
@@ -60,10 +60,13 @@ export function onProjectInputChange(event, owner, field) {
         ...projects[index],
         [field]: input.value
     };
+    const cost = calculateCost(updatedProject);
+    const remaining = cost - updatedProject.dominion - updatedProject.influence;
 
     projects.splice(index, 1, {
         ...updatedProject,
-        cost: calculateCost(updatedProject)
+        cost,
+        remaining
     });
     owner.update({'system.projects': projects});
 }
