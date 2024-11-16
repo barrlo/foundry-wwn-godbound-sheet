@@ -15,7 +15,7 @@
     </div>
     <ol class="item-list">
         {{#each system.projects as |project|}}
-        <li class="item flexrow">
+        <li class="item flexrow" data-project-id="{{project.id}}">
             <label>Project Name</label>
             <input type="text" value="{{project.name}}" />
             <label>Difficulty</label>

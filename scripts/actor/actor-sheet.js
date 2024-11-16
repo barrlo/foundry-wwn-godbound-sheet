@@ -19,7 +19,7 @@ export class BarrloActorSheet extends ActorSheet {
 
         if (this.actor.type === 'character') {
             if (!this.actor.system.projects) {
-                this.actor.update({"system.projects": []});
+                this.actor.update({'system.projects': []});
             }
         }
 
@@ -240,7 +240,9 @@ export class BarrloActorSheet extends ActorSheet {
                     }
                 );
                 const s = popUpDialog.render(true);
-                if (s instanceof Promise) await s;
+                if (s instanceof Promise) {
+                    await s;
+                }
             } else {
                 ui.notifications?.info('Could not find any items in the compendium');
             }
@@ -395,7 +397,9 @@ export class BarrloActorSheet extends ActorSheet {
         });
 
         // Everything below here is only needed if the sheet is editable
-        if (!this.options.editable) return;
+        if (!this.options.editable) {
+            return;
+        }
 
         html.find('.memorize input')
             .click(ev => ev.target.select())
