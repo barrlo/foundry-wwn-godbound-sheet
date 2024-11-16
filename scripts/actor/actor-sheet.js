@@ -1,5 +1,6 @@
 import {BarrloActor} from './entity.js';
 import {BarrloEntityTweaks} from '../dialog/entity-tweaks.js';
+import {onManageProject} from '../projects.mjs';
 
 export class BarrloActorSheet extends ActorSheet {
     constructor(...args) {
@@ -15,8 +16,6 @@ export class BarrloActorSheet extends ActorSheet {
 
         data.config = CONFIG.WWN;
         data.isNew = this.actor.isNew();
-
-        if (this.actor.type !== 'faction') {}
 
         if (this.actor.type === 'character') {
             if (!this.actor.system.projects) {
@@ -108,8 +107,7 @@ export class BarrloActorSheet extends ActorSheet {
     activateListeners(html) {
         super.activateListeners(html);
 
-        // Active Effect management
-        // html.find('.effect-control').click(ev => onManageProject(ev, this.actor));
+        html.find('.project-control').click(ev => onManageProject(ev, this.actor));
 
         // Item summaries
         html.find('.item .item-name h4').click(event => this._onItemSummary(event));

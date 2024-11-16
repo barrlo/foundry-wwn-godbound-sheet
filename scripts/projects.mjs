@@ -7,28 +7,24 @@ export function onManageProject(event, owner) {
         : null;
     switch (a.dataset.action) {
         case 'create':
-            const updatedProjects = [...owner.system.projects, {
+            const addProject = [...owner.system.projects, {
                 name: `new project ${owner.system.projects.length + 1}`,
                 difficulty: '',
                 scope: ''
             }];
-            owner.update({"system.projects": updatedProjects});
+            owner.update({"system.projects": addProject});
             break;
         case 'edit':
             return effect.sheet.render(true);
         case 'delete':
-            return effect.delete();
+            // const deleteProject = [...owner.system.projects, {
+            //     name: `new project ${owner.system.projects.length + 1}`,
+            //     difficulty: '',
+            //     scope: ''
+            // }];
+            // owner.update({"system.projects": deleteProject});
+            break;
         case 'toggle':
             return effect.update({disabled: !effect.disabled});
     }
 }
-
-// export function prepareProjects(projects) {
-//     for (let project of projects) {
-//         e.SourceName; // Trigger a lookup for the source name
-//         if (e.disabled) categories.inactive.effects.push(e);
-//         else if (e.isTemporary) categories.temporary.effects.push(e);
-//         else categories.passive.effects.push(e);
-//     }
-//     return categories;
-// }

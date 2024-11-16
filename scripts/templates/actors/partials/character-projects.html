@@ -5,7 +5,7 @@
         <div class="effect-source"></div>
         <div class="item-controls effect-controls flexrow">
             <a
-                class="effect-control"
+                class="project-control"
                 data-action="create"
                 title="{{localize 'WWN.EffectCreate'}}"
             >
@@ -38,6 +38,15 @@
                 <option value="realm">Realm</option>
                 {{/select}}
             </select>
+            <div class="item-controls effect-controls flexrow">
+                <a
+                    class="project-control"
+                    data-action="delete"
+                    title="{{localize 'WWN.EffectDelete'}}"
+                >
+                    <i class="fas fa-trash"></i>
+                </a>
+            </div>
         </li>
         {{/each}}
     </ol>
