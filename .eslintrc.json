@@ -3,6 +3,10 @@
     "plugin:import/recommended",
     "plugin:prettier/recommended"
   ],
+  "env": {
+    "browser": true,
+    "node": true
+  },
   "settings": {
     "import/resolver": {
       "node": true
