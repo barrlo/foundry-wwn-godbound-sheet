@@ -4,6 +4,7 @@ export function onAddProjectClick(event, owner) {
     const projects = [...owner.system.projects, {
         completed: false,
         cost: 0,
+        description: '',
         difficulty: '',
         dominion: 0,
         id: `${owner.name}-project-${owner.system.projects.length + 1}`,
@@ -28,7 +29,7 @@ export function onDeleteProjectClick(event, owner) {
     owner.update({'system.projects': projects});
 }
 
-export function onProjectInputChange(event, owner) {
+export function onProjectInputChange(event, owner, field) {
     event.preventDefault();
 
     const input = event.currentTarget;
@@ -37,7 +38,7 @@ export function onProjectInputChange(event, owner) {
     const index = projects.findIndex(proj => proj.id === li.dataset.projectId);
     const updatedProject = {
         ...projects[index],
-        [input.dataset.field]: input.value
+        [field]: input.value
     };
 
     projects.splice(index, 1, updatedProject);

@@ -1,9 +1,7 @@
-<section>
-    <div class="items-header flexrow" data-effect-type="{{section.type}}">
-        <h3 class="item-name effect-name flexrow">Projects</h3>
-        <div class="effect-source"></div>
-        <div class="effect-source"></div>
-        <div class="item-controls effect-controls flexrow">
+<section class="inventory">
+    <div class="item-titles flexrow" data-effect-type="{{section.type}}">
+        <div class="item-name">Projects</div>
+        <div class="item-controls">
             <a class="add-project-button" title="{{localize 'WWN.EffectCreate'}}">
                 <i class="fas fa-plus"></i> {{localize "WWN.Add"}}
             </a>
@@ -11,11 +9,18 @@
     </div>
     <ol class="item-list">
         {{#each system.projects as |project|}}
-        <li class="item flexrow" data-project-id="{{project.id}}">
-            <label>Project Name</label>
-            <input class="project-name-input" type="text" value="{{project.name}}" data-field="name" />
-            <label>Difficulty</label>
-            <select>
+        <li class="project-card" data-project-id="{{project.id}}">
+            <div class="flexrow">
+                <label for="project-name-input">Project Name:</label>
+                <input id="project-name-input" class="project-name-input" type="text" value="{{project.name}}" />
+                <div class="delete-project-button" title="Delete">
+                    <i class="fas fa-trash"></i>
+                </div>
+            </div>
+            <label for="project-description-input">Description:</label>
+            <textarea id="project-description-input" class="project-description-input" rows="4" cols="50">{{project.description}}</textarea>
+            <label for="project-difficulty-select">Difficulty:</label>
+            <select id="project-difficulty-select" class="project-difficulty-select">
                 {{#select project.difficulty}}
                 <option value=""></option>
                 <option value="plausible">Plausible</option>
@@ -23,8 +28,8 @@
                 <option value="impossible">Impossible</option>
                 {{/select}}
             </select>
-            <label>Scope</label>
-            <select>
+            <label for="project-scope-select">Scope:</label>
+            <select id="project-scope-select" class="project-scope-select">
                 {{#select project.scope}}
                 <option value=""></option>
                 <option value="village">Village</option>
@@ -34,11 +39,6 @@
                 <option value="realm">Realm</option>
                 {{/select}}
             </select>
-            <div class="item-controls effect-controls flexrow">
-                <a class="delete-project-button" title="{{localize 'WWN.EffectDelete'}}">
-                    <i class="fas fa-trash"></i>
-                </a>
-            </div>
         </li>
         {{/each}}
     </ol>

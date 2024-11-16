@@ -278,9 +278,12 @@ export class BarrloActorSheetCharacter extends BarrloActorSheet {
     activateListeners(html) {
         super.activateListeners(html);
 
-        html.find('.add-project-button').on('click', ev => onAddProjectClick(ev, this.actor));
-        html.find('.delete-project-button').on('click', ev => onDeleteProjectClick(ev, this.actor));
-        html.find('.project-name-input').on('change', ev => onProjectInputChange(ev, this.actor));
+        html.find('.add-project-button').on('click', evt => onAddProjectClick(evt, this.actor));
+        html.find('.delete-project-button').on('click', evt => onDeleteProjectClick(evt, this.actor));
+        html.find('.project-name-input').on('change', evt => onProjectInputChange(evt, this.actor, 'name'));
+        html.find('.project-description-input').on('change', evt => onProjectInputChange(evt, this.actor, 'description'));
+        html.find('.project-difficulty-select').on('change', evt => onProjectInputChange(evt, this.actor, 'difficulty'));
+        html.find('.project-scope-select').on('change', evt => onProjectInputChange(evt, this.actor, 'scope'));
 
         html.find('.ability-score .attribute-name a').click(ev => {
             let actorObject = this.actor;

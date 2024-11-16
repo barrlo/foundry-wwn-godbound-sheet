@@ -1,3 +1,34 @@
 .wwn.sheet.actor nav.sheet-tabs {
     top: 407px;
 }
+
+.project-card {
+    border: 2px solid black;
+    border-radius: 5px;
+    margin: 5px 0;
+    padding: 5px;
+}
+
+.project-card .project-name-label {
+    max-width: 90px;
+}
+
+.project-card .project-name-input {
+    border: 1px solid black;
+    border-radius: 3px;
+    height: 30px;
+    padding: 0 3px;
+    text-align: start;
+}
+
+.project-card .delete-project-button {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    max-width: 40px;
+}
+
+.project-card .project-description-input {
+    resize: none;
+}
