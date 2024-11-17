@@ -10,8 +10,8 @@
     <ol class="item-list">
         {{#each system.projects as |project|}}
         <li class="project-card" data-project-id="{{project.id}}">
-            <div class="flexrow">
-                <label for="project-name-input" class="project-name-label">Project Name:</label>
+            <div class="project-name-row">
+                <label for="project-name-input" class="project-label project-name-label">Project Name:</label>
                 <input id="project-name-input" class="project-input project-name-input" type="text"
                        value="{{project.name}}"
                        placeholder="project name" />
@@ -19,12 +19,12 @@
                     <i class="fas fa-trash"></i>
                 </div>
             </div>
-            <label for="project-description-input">Description:</label>
+            <label for="project-description-input" class="project-label">Description:</label>
             <textarea id="project-description-input" class="project-description-input" rows="4" cols="50">{{project.description}}</textarea>
-            <div class="flexrow">
-                <div class="project-difficulty">
-                    <label for="project-difficulty-select">Difficulty:</label>
-                    <select id="project-difficulty-select" class="project-difficulty-select">
+            <div class="project-field-row">
+                <div class="flexrow project-difficulty">
+                    <label for="project-difficulty-select" class="project-label">Difficulty:</label>
+                    <select id="project-difficulty-select" class="project-select project-difficulty-select">
                         {{#select project.difficulty}}
                         <option value=""></option>
                         <option value="plausible">Plausible</option>
@@ -33,9 +33,9 @@
                         {{/select}}
                     </select>
                 </div>
-                <div class="project-scope">
-                    <label for="project-scope-select">Scope:</label>
-                    <select id="project-scope-select" class="project-scope-select">
+                <div class="flexrow project-scope">
+                    <label for="project-scope-select" class="project-label">Scope:</label>
+                    <select id="project-scope-select" class="project-select project-scope-select">
                         {{#select project.scope}}
                         <option value=""></option>
                         <option value="village">Village</option>
@@ -46,20 +46,34 @@
                         {{/select}}
                     </select>
                 </div>
-                <label for="project-resistance-input">Resistance:</label>
-                <input id="project-resistance-input" class="project-input" type="number"
-                       value="{{project.resistance}}" />
+                <div class="flexrow">
+                    <label for="project-resistance-input" class="project-label">Resistance:</label>
+                    <input id="project-resistance-input" class="project-input" type="number"
+                           value="{{project.resistance}}" />
+                </div>
+                <div class="flexrow">
+                    <label for="project-cost-input" class="project-label">Cost:</label>
+                    <input id="project-cost-input" class="project-input" type="number" value="{{project.cost}}"
+                           disabled />
+                </div>
             </div>
-            <div class="flexrow">
-                <label for="project-dominion-input">Dominion:</label>
-                <input id="project-dominion-input" class="project-input" type="number" value="{{project.dominion}}" />
-                <label for="project-influence-input">Influence:</label>
-                <input id="project-influence-input" class="project-input" type="number" value="{{project.influence}}" />
-                <label for="project-cost-input">Cost:</label>
-                <input id="project-cost-input" class="project-input" type="number" value="{{project.cost}}" disabled />
-                <label for="project-remaining-input">Remaining:</label>
-                <input id="project-remaining-input" class="project-input" type="number" value="{{project.remaining}}"
-                       disabled />
+            <div class="project-field-row">
+                <div class="flexrow">
+                    <label for="project-dominion-input" class="project-label">Dominion:</label>
+                    <input id="project-dominion-input" class="project-input" type="number"
+                           value="{{project.dominion}}" />
+                </div>
+                <div class="flexrow">
+                    <label for="project-influence-input" class="project-label">Influence:</label>
+                    <input id="project-influence-input" class="project-input" type="number"
+                           value="{{project.influence}}" />
+                </div>
+                <div class="flexrow">
+                    <label for="project-remaining-input" class="project-label">Remaining:</label>
+                    <input id="project-remaining-input" class="project-input" type="number"
+                           value="{{project.remaining}}" disabled />
+                </div>
+<!--                <button class="project-complete-button">Complete</button>-->
             </div>
         </li>
         {{/each}}

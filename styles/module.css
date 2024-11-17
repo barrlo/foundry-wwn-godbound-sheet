@@ -6,22 +6,19 @@
     border: 2px solid black;
     border-radius: 5px;
     margin: 5px 0;
-    padding: 5px;
+    padding: 5px 5px 0;
 }
 
-.project-card .project-name-label {
-    max-width: 90px;
+.project-card .project-name-row {
+    display: grid;
+    grid-template-columns: 95px auto 40px;
+    margin-bottom: 5px;
 }
 
-.project-card .project-input {
-    border: 1px solid black !important;
-    border-radius: 3px !important;
-    height: 30px;
-    padding: 0 3px;
-}
-
-.project-card .project-input.project-name-input {
-    text-align: start !important;
+.project-card .project-field-row {
+    display: grid;
+    grid-template-columns: 176px 176px 176px 176px;
+    margin-bottom: 5px;
 }
 
 .project-card .delete-project-button {
@@ -32,14 +29,42 @@
     max-width: 40px;
 }
 
+.project-card .project-label {
+    background: #252525;
+    color: whitesmoke;
+    display: block;
+    min-height: 30px;
+    padding: 0 5px;
+}
+
+.project-card .project-label.project-name-label {
+    max-width: 94px;
+}
+
+.project-card .project-field-row .project-label {
+    max-width: 78px;
+}
+
+.project-card .project-input {
+    height: 30px;
+    padding: 0 3px;
+    margin: 0 3px;
+}
+
+.project-card .project-input.project-name-input {
+    text-align: start !important;
+}
+
 .project-card .project-description-input {
     resize: none;
 }
 
-.project-card .project-difficulty {
-    min-width: 170px;
+.project-card .project-select {
+    font-size: 13px;
+    margin: 0 3px;
+    max-width: 92px;
 }
 
-.project-card .project-scope {
-    min-width: 125px;
+.project-card .project-complete-button {
+    line-height: 24px;
 }
