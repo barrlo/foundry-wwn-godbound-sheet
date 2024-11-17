@@ -13,11 +13,14 @@
     max-width: 90px;
 }
 
-.project-card .project-name-input {
+.project-card .project-input {
     border: 1px solid black !important;
     border-radius: 3px !important;
     height: 30px;
     padding: 0 3px;
+}
+
+.project-card .project-input.project-name-input {
     text-align: start !important;
 }
 
@@ -31,4 +34,12 @@
 
 .project-card .project-description-input {
     resize: none;
+}
+
+.project-card .project-difficulty {
+    min-width: 170px;
+}
+
+.project-card .project-scope {
+    min-width: 125px;
 }
