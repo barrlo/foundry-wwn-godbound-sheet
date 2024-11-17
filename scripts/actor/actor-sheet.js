@@ -20,6 +20,10 @@ export class BarrloActorSheet extends ActorSheet {
             if (!this.actor.system.projects) {
                 this.actor.update({'system.projects': []});
             }
+
+            if (!this.actor.system.frayDice) {
+                this.actor.update({'system.frayDice': '1d8'});
+            }
         }
 
         return data;
