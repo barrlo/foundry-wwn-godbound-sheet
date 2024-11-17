@@ -2,6 +2,10 @@
     top: 407px;
 }
 
+.add-project-button {
+    cursor: pointer;
+}
+
 .project-card {
     border: 2px solid black;
     border-radius: 5px;
@@ -10,8 +14,6 @@
 }
 
 .project-card .project-name-row {
-    /*display: grid;*/
-    /*grid-template-columns: 95px auto 40px;*/
     margin-bottom: 5px;
 }
 
