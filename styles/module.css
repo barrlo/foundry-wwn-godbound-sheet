@@ -10,8 +10,8 @@
 }
 
 .project-card .project-name-row {
-    display: grid;
-    grid-template-columns: 95px auto 40px;
+    /*display: grid;*/
+    /*grid-template-columns: 95px auto 40px;*/
     margin-bottom: 5px;
 }
 
@@ -21,8 +21,9 @@
     margin-bottom: 5px;
 }
 
-.project-card .delete-project-button {
+.project-card .project-button {
     align-items: center;
+    cursor: pointer;
     display: flex;
     flex-direction: row;
     justify-content: center;

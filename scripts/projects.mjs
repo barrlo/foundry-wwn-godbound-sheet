@@ -22,13 +22,14 @@ export function onAddProjectClick(event, owner) {
     event.preventDefault();
 
     const projects = [...owner.system.projects, {
-        completed: false,
         cost: 0,
         description: '',
         difficulty: '',
         dominion: 0,
         id: `${owner.name}-project-${owner.system.projects.length + 1}`,
         influence: 0,
+        isComplete: false,
+        isEditMode: false,
         name: '',
         remaining: 0,
         resistance: 0,
@@ -46,6 +47,22 @@ export function onDeleteProjectClick(event, owner) {
     const index = projects.findIndex(proj => proj.id === li.dataset.projectId);
 
     projects.splice(index, 1);
+    owner.update({'system.projects': projects});
+}
+
+export function onEditProjectClick(event, owner) {
+    event.preventDefault();
+
+    const input = event.currentTarget;
+    const li = input.closest('li');
+    const projects = [...owner.system.projects];
+    const index = projects.findIndex(proj => proj.id === li.dataset.projectId);
+    const updatedProject = {
+        ...projects[index],
+        isEditMode: !projects[index].isEditMode
+    };
+
+    projects.splice(index, 1, updatedProject);
     owner.update({'system.projects': projects});
 }
 

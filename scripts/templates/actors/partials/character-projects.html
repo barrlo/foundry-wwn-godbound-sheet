@@ -2,22 +2,27 @@
     <div class="item-titles flexrow" data-effect-type="{{section.type}}">
         <div class="item-name">Projects</div>
         <div class="item-controls">
-            <a class="add-project-button" title="{{localize 'WWN.EffectCreate'}}">
-                <i class="fas fa-plus"></i> {{localize "WWN.Add"}}
+            <a class="add-project-button">
+                <i class="fas fa-plus"></i> Add
             </a>
         </div>
     </div>
     <ol class="item-list">
         {{#each system.projects as |project|}}
         <li class="project-card" data-project-id="{{project.id}}">
-            <div class="project-name-row">
+            <div class="project-name-row flexrow">
                 <label for="project-name-input" class="project-label project-name-label">Project Name:</label>
                 <input id="project-name-input" class="project-input project-name-input" type="text"
                        value="{{project.name}}"
                        placeholder="project name" />
-                <div class="delete-project-button" title="Delete">
+                <div class="project-button edit-project-button" title="Edit">
+                    <i class="fas fa-edit"></i>
+                </div>
+                {{#if project.isEditMode}}
+                <div class="project-button delete-project-button" title="Delete">
                     <i class="fas fa-trash"></i>
                 </div>
+                {{/if}}
             </div>
             <label for="project-description-input" class="project-label">Description:</label>
             <textarea id="project-description-input" class="project-description-input" rows="4" cols="50">{{project.description}}</textarea>
@@ -48,7 +53,7 @@
                 </div>
                 <div class="flexrow">
                     <label for="project-resistance-input" class="project-label">Resistance:</label>
-                    <input id="project-resistance-input" class="project-input" type="number"
+                    <input id="project-resistance-input" class="project-input project-resistance-input" type="number"
                            value="{{project.resistance}}" />
                 </div>
                 <div class="flexrow">
@@ -60,12 +65,12 @@
             <div class="project-field-row">
                 <div class="flexrow">
                     <label for="project-dominion-input" class="project-label">Dominion:</label>
-                    <input id="project-dominion-input" class="project-input" type="number"
+                    <input id="project-dominion-input" class="project-input project-dominion-input" type="number"
                            value="{{project.dominion}}" />
                 </div>
                 <div class="flexrow">
                     <label for="project-influence-input" class="project-label">Influence:</label>
-                    <input id="project-influence-input" class="project-input" type="number"
+                    <input id="project-influence-input" class="project-input project-influence-input" type="number"
                            value="{{project.influence}}" />
                 </div>
                 <div class="flexrow">
@@ -73,7 +78,7 @@
                     <input id="project-remaining-input" class="project-input" type="number"
                            value="{{project.remaining}}" disabled />
                 </div>
-<!--                <button class="project-complete-button">Complete</button>-->
+                <!--                <button class="project-complete-button">Complete</button>-->
             </div>
         </li>
         {{/each}}
