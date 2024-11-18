@@ -2,7 +2,7 @@ import {BarrloActorSheet} from './actor-sheet.js';
 import {BarrloCharacterModifiers} from '../dialog/character-modifiers.js';
 import {BarrloAdjustCurrency} from '../dialog/adjust-currency.js';
 import {BarrloCharacterCreator} from '../dialog/character-creation.js';
-import {BarrloDice} from '../dice.js';
+import {rollFrayDice} from '../charcter.mjs';
 import {onAddProjectClick, onDeleteProjectClick, onEditProjectClick, onProjectInputChange} from '../projects.mjs';
 
 /**
@@ -272,26 +272,6 @@ export class BarrloActorSheetCharacter extends BarrloActorSheet {
         }).render(true);
     }
 
-    async _rollFrayDice(options = {}) {
-        const rollParts = ['1d8'];
-        const data = {
-            actor: this,
-            roll: {
-                type: 'fraydice'
-            }
-        };
-
-        return await BarrloDice.Roll({
-            event: options.event,
-            parts: rollParts,
-            data: data,
-            skipDialog: true,
-            speaker: ChatMessage.getSpeaker({actor: this}),
-            flavor: 'Fray Dice',
-            title: 'Fray Dice'
-        });
-    }
-
     /**
      * Activate event listeners using the prepared sheet HTML
      * @param html {HTML}   The prepared HTML object ready to be rendered into the DOM
@@ -314,7 +294,7 @@ export class BarrloActorSheetCharacter extends BarrloActorSheet {
         html.find('.project-influence-input').on('change', evt => onProjectInputChange(evt, this.actor, 'influence'));
 
         html.find('#fray-dice-roll').on('click', async () => {
-            await this._rollFrayDice();
+            await rollFrayDice(this.actor);
         });
         //endregion
 
