@@ -9,27 +9,22 @@
         <a class="item" data-tab="attributes">
             {{localize "WWN.category.attributes"}}
         </a>
-        {{#if system.spells.enabled}}
-        <a class="item" data-tab="spells"> {{localize "WWN.category.spells"}} </a>
-        {{/if}}
+        <a class="item" data-tab="gifts"> Gifts </a>
         <a class="item" data-tab="inventory">
             {{localize "WWN.category.inventory"}}
         </a>
         <a class="item" data-tab="notes"> {{localize "WWN.category.details"}} </a>
-        <a class="item" data-tab="projects">Projects</a>
+        <a class="item" data-tab="projects"> Projects </a>
     </nav>
     {{! Sheet Body }}
     <section class="sheet-body">
         {{! Attributes Tab }}
         <div class="tab" data-group="primary" data-tab="attributes">
-            {{>
-            "modules/foundry-wwn-godbound-sheet/scripts/templates/actors/partials/character-attributes-tab.html"}}
+            {{> "modules/foundry-wwn-godbound-sheet/scripts/templates/actors/partials/character-attributes-tab.html"}}
         </div>
-        {{#if system.spells.enabled}}
-        <div class="tab" data-group="primary" data-tab="spells">
-            {{> "modules/foundry-wwn-godbound-sheet/scripts/templates/actors/partials/character-spells-tab.html"}}
+        <div class="tab" data-group="primary" data-tab="gifts">
+            {{> "modules/foundry-wwn-godbound-sheet/scripts/templates/actors/partials/character-gifts-tab.html"}}
         </div>
-        {{/if}}
         <div class="tab" data-group="primary" data-tab="inventory">
             {{> "modules/foundry-wwn-godbound-sheet/scripts/templates/actors/partials/character-inventory-tab.html"}}
         </div>
@@ -37,7 +32,7 @@
             {{> "modules/foundry-wwn-godbound-sheet/scripts/templates/actors/partials/character-notes-tab.html"}}
         </div>
         <div class="tab" data-group="primary" data-tab="projects">
-            {{> "modules/foundry-wwn-godbound-sheet/scripts/templates/actors/partials/character-projects.hbs"}}
+            {{> "modules/foundry-wwn-godbound-sheet/scripts/templates/actors/partials/character-projects-tab.hbs"}}
         </div>
     </section>
 </form>
