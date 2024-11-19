@@ -1,25 +1,25 @@
-.add-project-button {
+.godbound .add-project-button {
     cursor: pointer;
 }
 
-.project-card {
+.godbound .project-card {
     border: 2px solid black;
     border-radius: 5px;
     margin: 5px 0;
     padding: 5px 5px 0;
 }
 
-.project-card .project-name-row {
+.godbound .project-card .project-name-row {
     margin-bottom: 5px;
 }
 
-.project-card .project-field-row {
+.godbound .project-card .project-field-row {
     display: grid;
     grid-template-columns: 176px 176px 176px 176px;
     margin-bottom: 5px;
 }
 
-.project-card .project-button {
+.godbound .project-card .project-button {
     align-items: center;
     cursor: pointer;
     display: flex;
@@ -28,7 +28,7 @@
     max-width: 40px;
 }
 
-.project-card .project-label {
+.godbound .project-card .project-label {
     background: #252525;
     color: whitesmoke;
     display: block;
@@ -36,34 +36,34 @@
     padding: 0 5px;
 }
 
-.project-card .project-label.project-name-label {
+.godbound .project-card .project-label.project-name-label {
     max-width: 94px;
 }
 
-.project-card .project-field-row .project-label {
+.godbound .project-card .project-field-row .project-label {
     max-width: 78px;
 }
 
-.project-card .project-input {
+.godbound .project-card .project-input {
     height: 30px;
     padding: 0 3px;
     margin: 0 3px;
 }
 
-.project-card .project-input.project-name-input {
+.godbound .project-card .project-input.project-name-input {
     text-align: start !important;
 }
 
-.project-card .project-description-input {
+.godbound .project-card .project-description-input {
     resize: none;
 }
 
-.project-card .project-select {
+.godbound .project-card .project-select {
     font-size: 13px;
     margin: 0 3px;
     max-width: 92px;
 }
 
-.project-card .project-complete-button {
+.godbound .project-card .project-complete-button {
     line-height: 24px;
 }

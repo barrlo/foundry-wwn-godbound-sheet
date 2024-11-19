@@ -5,7 +5,7 @@ Hooks.once('init', async function () {
     Actors.registerSheet('wwn', BarrloActorSheetCharacter, {
         types: ['character'],
         makeDefault: false,
-        label: 'barrlo.SheetClassCharacter'
+        label: 'barrlo.GodboundCharacterSheet'
     });
 
     await preloadHandlebarsTemplates();
