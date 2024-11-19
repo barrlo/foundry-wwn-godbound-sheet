@@ -17,21 +17,12 @@ export class BarrloActorSheet extends ActorSheet {
         data.isNew = this.actor.isNew();
 
         if (this.actor.type === 'character') {
-            console.log(this.actor);
             if (!this.actor.system.godbound) {
-                this.actor.update({'system.godbound': {}});
-            }
-
-            if (!this.actor.system.godbound.projects) {
-                this.actor.update({'system.godbound.projects': []});
-            }
-
-            if (!this.actor.system.godbound.frayDice) {
-                this.actor.update({'system.godbound.frayDice': '1d8'});
-            }
-
-            if (!this.actor.system.godbound.gifts) {
-                this.actor.update({'system.godbound.gifts': []});
+                this.actor.update({'system.godbound': {
+                        frayDice: '1d8',
+                        gifts: [],
+                        projects: []
+                    }});
             }
         }
 
