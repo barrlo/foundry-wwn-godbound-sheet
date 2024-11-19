@@ -1,7 +1,7 @@
 import {BarrloDice} from './dice.js';
 
 export const rollFrayDice = async (owner) => {
-    const rollParts = [owner.system.frayDice];
+    const rollParts = [owner.system.godbound.frayDice];
     const data = {
         actor: this,
         roll: {

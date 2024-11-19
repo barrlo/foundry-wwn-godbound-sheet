@@ -21,12 +21,12 @@ const calculateCost = project => {
 export function onAddProjectClick(event, owner) {
     event.preventDefault();
 
-    const projects = [...owner.system.projects, {
+    const projects = [...owner.system.godbound.projects, {
         cost: 0,
         description: '',
         difficulty: '',
         dominion: 0,
-        id: `${owner.name}-project-${owner.system.projects.length + 1}`,
+        id: `${owner.name}-project-${owner.system.godbound.projects.length + 1}`,
         influence: 0,
         isComplete: false,
         isEditMode: false,
@@ -35,7 +35,7 @@ export function onAddProjectClick(event, owner) {
         resistance: 0,
         scope: ''
     }];
-    owner.update({'system.projects': projects});
+    owner.update({'system.godbound.projects': projects});
 }
 
 export function onDeleteProjectClick(event, owner) {
@@ -43,11 +43,11 @@ export function onDeleteProjectClick(event, owner) {
 
     const a = event.currentTarget;
     const li = a.closest('li');
-    const projects = [...owner.system.projects];
+    const projects = [...owner.system.godbound.projects];
     const index = projects.findIndex(proj => proj.id === li.dataset.projectId);
 
     projects.splice(index, 1);
-    owner.update({'system.projects': projects});
+    owner.update({'system.godbound.projects': projects});
 }
 
 export function onEditProjectClick(event, owner) {
@@ -55,7 +55,7 @@ export function onEditProjectClick(event, owner) {
 
     const input = event.currentTarget;
     const li = input.closest('li');
-    const projects = [...owner.system.projects];
+    const projects = [...owner.system.godbound.projects];
     const index = projects.findIndex(proj => proj.id === li.dataset.projectId);
     const updatedProject = {
         ...projects[index],
@@ -63,7 +63,7 @@ export function onEditProjectClick(event, owner) {
     };
 
     projects.splice(index, 1, updatedProject);
-    owner.update({'system.projects': projects});
+    owner.update({'system.godbound.projects': projects});
 }
 
 export function onProjectInputChange(event, owner, field) {
@@ -71,7 +71,7 @@ export function onProjectInputChange(event, owner, field) {
 
     const input = event.currentTarget;
     const li = input.closest('li');
-    const projects = [...owner.system.projects];
+    const projects = [...owner.system.godbound.projects];
     const index = projects.findIndex(proj => proj.id === li.dataset.projectId);
     const updatedProject = {
         ...projects[index],
@@ -85,39 +85,5 @@ export function onProjectInputChange(event, owner, field) {
         cost,
         remaining
     });
-    owner.update({'system.projects': projects});
+    owner.update({'system.godbound.projects': projects});
 }
-
-// export function onProjectDifficultyChange(event, owner, field) {
-//     event.preventDefault();
-//
-//     const input = event.currentTarget;
-//     const li = input.closest('li');
-//     const projects = [...owner.system.projects];
-//     const index = projects.findIndex(proj => proj.id === li.dataset.projectId);
-//     const updatedProject = {
-//         ...projects[index],
-//         [field]: input.value
-//     };
-//
-//     projects.splice(index, 1, {
-//         ...updatedProject,
-//         cost: calculateCost(updatedProject)
-//     });
-//     owner.update({'system.projects': projects});
-// }
-
-// export function onEditProjectClick(event, owner) {
-//     event.preventDefault();
-//     const a = event.currentTarget;
-//     const li = a.closest('li');
-//
-//     switch (a.dataset.action) {
-//         case 'edit':
-//             // return project.sheet.render(true);
-//             break;
-//         case 'toggle':
-//             // return project.update({disabled: !project.disabled});
-//             break;
-//     }
-// }
