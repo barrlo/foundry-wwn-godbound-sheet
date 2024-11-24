@@ -214,41 +214,25 @@ export const setGifts = owner => {
         // skipped: faerie queen, lich king, peak human
     ];
 
-    console.log(owner);
     const arts = owner.items.filter(item => item.type === 'art');
-    console.log('>>> arts:', arts);
 
     const greater = arts
         .filter(art => greaterList.includes(art.name.toLowerCase()))
         .map(gift => ({...gift, ...gift.system}));
-    console.log('>>> greater:', greater);
-
     const lesser = arts
         .filter(art => lesserList.includes(art.name.toLowerCase()))
         .map(gift => ({...gift, ...gift.system}));
-    console.log('>>> lesser:', lesser);
 
     const pointsSpent = greater.length * 2 + lesser.length;
     const totalPoints = 6 + (owner.system.details.level - 1) * 2;
-    console.log('>>> total points', totalPoints);
     const remainingPoints = totalPoints - pointsSpent;
-    console.log('>>> points remaining', remainingPoints);
 
-    // owner.object.update({
-    //     'system.godbound.gifts': {
-    //         greater,
-    //         lesser,
-    //         remainingPoints,
-    //         totalPoints
-    //     }
-    // });
-
-    // return {
-    //     greater,
-    //     lesser,
-    //     remainingPoints,
-    //     totalPoints
-    // };
+    return {
+        greater,
+        lesser,
+        remainingPoints,
+        totalPoints
+    };
 };
 
 export const onAddGreaterGiftClick = () => {

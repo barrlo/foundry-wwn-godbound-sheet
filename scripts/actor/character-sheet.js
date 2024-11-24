@@ -148,14 +148,6 @@ export class BarrloActorSheetCharacter extends BarrloActorSheet {
     async getData() {
         const data = super.getData();
 
-        // if (
-        //     data.system.godbound.gifts &&
-        //     (data.system.godbound.gifts.greater || []).length === 0 &&
-        //     (data.system.godbound.gifts.lesser || []).length === 0
-        // ) {
-        //     setGifts(this);
-        // }
-
         // Prepare owned items
         this._prepareItems(data);
 

@@ -18,19 +18,13 @@ export class BarrloActorSheet extends ActorSheet {
         data.isNew = this.actor.isNew();
 
         if (this.actor.type === 'character') {
-            // const gifts = setGifts(this.actor);
-            // console.log('returned', gifts);
+            const gifts = setGifts(this.actor);
 
             if (!this.actor.system.godbound) {
                 this.actor.update({
                     'system.godbound': {
                         frayDice: '1d8',
-                        gifts: {
-                            greater: [],
-                            lesser: [],
-                            remainingPoints: 0,
-                            totalPoints: 6
-                        },
+                        gifts,
                         projects: []
                     }
                 });
@@ -38,22 +32,19 @@ export class BarrloActorSheet extends ActorSheet {
                 this.actor.update({
                     'system.godbound': {
                         ...this.actor.system.godbound,
-                        gifts: {
-                            greater: [],
-                            lesser: [],
-                            remainingPoints: 0,
-                            totalPoints: 6
-                        }
+                        gifts
                     }
                 });
             } else if (Array.isArray(this.actor.system.godbound.gifts)) {
                 this.actor.update({
-                    'system.godbound.gifts': {
-                        greater: [],
-                        lesser: [],
-                        remainingPoints: 0,
-                        totalPoints: 6
-                    }
+                    'system.godbound.gifts': gifts
+                });
+            } else if (
+                (this.actor.system.godbound.gifts.greater || []).length === 0 &&
+                (this.actor.system.godbound.gifts.lesser || []).length === 0
+            ) {
+                this.actor.update({
+                    'system.godbound.gifts': gifts
                 });
             }
         }
