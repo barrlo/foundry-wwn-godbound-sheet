@@ -1,6 +1,7 @@
 {
   "name": "foundry-wwn-godbound-sheet",
   "version": "1.0.0",
+  "type": "module",
   "description": "Barrlo's Godbound Sheet in WWN",
   "main": "index.js",
   "scripts": {

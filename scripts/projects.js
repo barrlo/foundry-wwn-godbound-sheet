@@ -15,30 +15,33 @@ const calculateCost = project => {
     const difficultyCost = difficultyValue[project.difficulty];
     const scopeCost = scopeValue[project.scope];
 
-    return (difficultyCost * scopeCost) + (difficultyCost * project.resistance);
+    return difficultyCost * scopeCost + difficultyCost * project.resistance;
 };
 
-export function onAddProjectClick(event, owner) {
+export const onAddProjectClick = (event, owner) => {
     event.preventDefault();
 
-    const projects = [...owner.system.godbound.projects, {
-        cost: 0,
-        description: '',
-        difficulty: '',
-        dominion: 0,
-        id: `${owner.name}-project-${owner.system.godbound.projects.length + 1}`,
-        influence: 0,
-        isComplete: false,
-        isEditMode: false,
-        name: '',
-        remaining: 0,
-        resistance: 0,
-        scope: ''
-    }];
+    const projects = [
+        ...owner.system.godbound.projects,
+        {
+            cost: 0,
+            description: '',
+            difficulty: '',
+            dominion: 0,
+            id: `${owner.name}-project-${owner.system.godbound.projects.length + 1}`,
+            influence: 0,
+            isComplete: false,
+            isEditMode: false,
+            name: '',
+            remaining: 0,
+            resistance: 0,
+            scope: ''
+        }
+    ];
     owner.update({'system.godbound.projects': projects});
-}
+};
 
-export function onDeleteProjectClick(event, owner) {
+export const onDeleteProjectClick = (event, owner) => {
     event.preventDefault();
 
     const a = event.currentTarget;
@@ -48,9 +51,9 @@ export function onDeleteProjectClick(event, owner) {
 
     projects.splice(index, 1);
     owner.update({'system.godbound.projects': projects});
-}
+};
 
-export function onEditProjectClick(event, owner) {
+export const onEditProjectClick = (event, owner) => {
     event.preventDefault();
 
     const input = event.currentTarget;
@@ -64,9 +67,9 @@ export function onEditProjectClick(event, owner) {
 
     projects.splice(index, 1, updatedProject);
     owner.update({'system.godbound.projects': projects});
-}
+};
 
-export function onProjectInputChange(event, owner, field) {
+export const onProjectInputChange = (event, owner, field) => {
     event.preventDefault();
 
     const input = event.currentTarget;
@@ -86,4 +89,4 @@ export function onProjectInputChange(event, owner, field) {
         remaining
     });
     owner.update({'system.godbound.projects': projects});
-}
+};

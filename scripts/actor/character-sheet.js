@@ -2,8 +2,8 @@ import {BarrloActorSheet} from './actor-sheet.js';
 import {BarrloCharacterModifiers} from '../dialog/character-modifiers.js';
 import {BarrloAdjustCurrency} from '../dialog/adjust-currency.js';
 import {BarrloCharacterCreator} from '../dialog/character-creation.js';
-import {rollFrayDice} from '../charcter.mjs';
-import {onAddProjectClick, onDeleteProjectClick, onEditProjectClick, onProjectInputChange} from '../projects.mjs';
+import {onAddGreaterGiftClick, onAddLesserGiftClick, rollFrayDice, setGifts} from '../character.js';
+import {onAddProjectClick, onDeleteProjectClick, onEditProjectClick, onProjectInputChange} from '../projects.js';
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -147,6 +147,15 @@ export class BarrloActorSheetCharacter extends BarrloActorSheet {
      */
     async getData() {
         const data = super.getData();
+
+        // if (
+        //     data.system.godbound.gifts &&
+        //     (data.system.godbound.gifts.greater || []).length === 0 &&
+        //     (data.system.godbound.gifts.lesser || []).length === 0
+        // ) {
+        //     setGifts(this);
+        // }
+
         // Prepare owned items
         this._prepareItems(data);
 
@@ -280,14 +289,17 @@ export class BarrloActorSheetCharacter extends BarrloActorSheet {
         super.activateListeners(html);
 
         //region Godbound
-
         // have to use classes for these for now because using IDs seems to only apply it to the first one found
         html.find('.add-project-button').on('click', evt => onAddProjectClick(evt, this.actor));
         html.find('.edit-project-button').on('click', evt => onEditProjectClick(evt, this.actor));
         html.find('.delete-project-button').on('click', evt => onDeleteProjectClick(evt, this.actor));
         html.find('.project-name-input').on('change', evt => onProjectInputChange(evt, this.actor, 'name'));
-        html.find('.project-description-input').on('change', evt => onProjectInputChange(evt, this.actor, 'description'));
-        html.find('.project-difficulty-select').on('change', evt => onProjectInputChange(evt, this.actor, 'difficulty'));
+        html.find('.project-description-input').on('change', evt =>
+            onProjectInputChange(evt, this.actor, 'description')
+        );
+        html.find('.project-difficulty-select').on('change', evt =>
+            onProjectInputChange(evt, this.actor, 'difficulty')
+        );
         html.find('.project-scope-select').on('change', evt => onProjectInputChange(evt, this.actor, 'scope'));
         html.find('.project-resistance-input').on('change', evt => onProjectInputChange(evt, this.actor, 'resistance'));
         html.find('.project-dominion-input').on('change', evt => onProjectInputChange(evt, this.actor, 'dominion'));
@@ -296,6 +308,9 @@ export class BarrloActorSheetCharacter extends BarrloActorSheet {
         html.find('#fray-dice-roll').on('click', async () => {
             await rollFrayDice(this.actor);
         });
+
+        html.find('#add-greater-gift-button').on('click', evt => onAddGreaterGiftClick(evt, this.actor));
+        html.find('#add-lesser-gift-button').on('click', evt => onAddLesserGiftClick(evt, this.actor));
         //endregion
 
         html.find('.ability-score .attribute-name a').click(ev => {
