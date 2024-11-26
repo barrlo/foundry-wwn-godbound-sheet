@@ -458,6 +458,7 @@ export class BarrloActor extends Actor {
         const weaponShock = attData.item.system.shock.damage;
         let statAttack, skillAttack, statValue, skillValue;
         if (data.character) {
+            console.log('>>> here');
             statAttack = attData.item.system.score;
             skillAttack = attData.item.system.skill;
             if (!skillAttack) {
@@ -1191,7 +1192,7 @@ export class BarrloActor extends Actor {
         if (this.type === 'faction') return;
         const data = this.system;
         const saves = data.saves;
-        const baseSave = data.saves.baseSave.value;
+        const baseSave = 16; // data.saves.baseSave.value;
         Object.keys(saves).forEach(s => {
             if (!saves[s].mod) {
                 saves[s].mod = 0;
