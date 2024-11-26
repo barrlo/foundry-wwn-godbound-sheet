@@ -280,7 +280,9 @@ export class BarrloItem extends Item {
 
     async spendSpell() {
         if (this.actor.system.spells.leveledSlots) {
-            if (this.type !== 'spell') throw new Error('Trying to spend a spell on an item that is not a spell.');
+            if (this.type !== 'spell') {
+                throw new Error('Trying to spend a spell on an item that is not a spell.');
+            }
 
             const itemData = this.system;
             if (itemData.cast <= 0) {
@@ -295,7 +297,9 @@ export class BarrloItem extends Item {
         } else {
             const spellsLeft = this.actor.system.spells.perDay.value;
             const spellsMax = this.actor.system.spells.perDay.max;
-            if (spellsLeft + 1 > spellsMax) return ui.notifications.warn('No spell slots remaining!');
+            if (spellsLeft + 1 > spellsMax) {
+                return ui.notifications.warn('No spell slots remaining!');
+            }
             this.actor
                 .update({
                     'system.spells.perDay.value': spellsLeft + 1
@@ -309,13 +313,17 @@ export class BarrloItem extends Item {
     spendArt() {
         if (this.system.time) {
             const sourceName = this.system.source;
-            if (sourceName === undefined) return ui.notifications.warn(`Please add class name to the Source field.`);
+            if (sourceName === undefined) {
+                return ui.notifications.warn(`Please add class name to the Source field.`);
+            }
 
             const currEffort = this.system.effort;
             const sourceVal = this.actor.system.classes[sourceName].value;
             const sourceMax = this.actor.system.classes[sourceName].max;
 
-            if (sourceVal + 1 > sourceMax) return ui.notifications.warn('No Effort remaining!');
+            if (sourceVal + 1 > sourceMax) {
+                return ui.notifications.warn('No Effort remaining!');
+            }
 
             this.update({'system.effort': currEffort + 1}).then(() => {
                 this.show({skipDialog: true});
@@ -327,7 +335,9 @@ export class BarrloItem extends Item {
 
     getTags() {
         let formatTag = (tag, icon) => {
-            if (!tag) return '';
+            if (!tag) {
+                return '';
+            }
             let fa = '';
             if (icon) {
                 fa = `<i class="fas ${icon}"></i> `;
@@ -489,9 +499,15 @@ export class BarrloItem extends Item {
 
         // Toggle default roll mode
         let rollMode = game.settings.get('core', 'rollMode');
-        if (['gmroll', 'blindroll'].includes(rollMode)) chatData['whisper'] = ChatMessage.getWhisperRecipients('GM');
-        if (rollMode === 'selfroll') chatData['whisper'] = [game.user.id];
-        if (rollMode === 'blindroll') chatData['blind'] = true;
+        if (['gmroll', 'blindroll'].includes(rollMode)) {
+            chatData['whisper'] = ChatMessage.getWhisperRecipients('GM');
+        }
+        if (rollMode === 'selfroll') {
+            chatData['whisper'] = [game.user.id];
+        }
+        if (rollMode === 'blindroll') {
+            chatData['blind'] = true;
+        }
 
         // Create the chat message
         return ChatMessage.create(chatData);
@@ -527,11 +543,15 @@ export class BarrloItem extends Item {
 
         // Validate permission to proceed with the roll
         const isTargetted = action === 'save';
-        if (!(isTargetted || game.user.isGM || message.isAuthor)) return;
+        if (!(isTargetted || game.user.isGM || message.isAuthor)) {
+            return;
+        }
 
         // Get the Actor from a synthetic Token
         const actor = this._getChatCardActor(card);
-        if (!actor) return;
+        if (!actor) {
+            return;
+        }
 
         // Get the Item
         const item = actor.items.get(card.dataset.itemId);
@@ -547,9 +567,11 @@ export class BarrloItem extends Item {
             targets = this._getChatCardTargets(card);
         }
         // Attack and Damage Rolls
-        if (action === 'damage') await item.rollDamage({event});
-        else if (action === 'formula') await item.rollFormula({event});
-        // Saving Throws for card targets
+        if (action === 'damage') {
+            await item.rollDamage({event});
+        } else if (action === 'formula') {
+            await item.rollFormula({event});
+        } // Saving Throws for card targets
         else if (action === 'save') {
             if (!targets.length) {
                 ui.notifications.warn(`You must have one or more controlled Tokens in order to use this option.`);
@@ -570,9 +592,13 @@ export class BarrloItem extends Item {
         if (tokenKey) {
             const [sceneId, tokenId] = tokenKey.split('.');
             const scene = game.scenes.get(sceneId);
-            if (!scene) return null;
+            if (!scene) {
+                return null;
+            }
             const tokenData = scene.getEmbeddedDocument('Token', tokenId);
-            if (!tokenData) return null;
+            if (!tokenData) {
+                return null;
+            }
             const token = new Token(tokenData);
             return token.actor;
         }
@@ -586,7 +612,9 @@ export class BarrloItem extends Item {
         const character = game.user.character;
         const controlled = canvas.tokens.controlled;
         const targets = controlled.reduce((arr, t) => (t.actor ? arr.concat([t.actor]) : arr), []);
-        if (character && controlled.length === 0) targets.push(character);
+        if (character && controlled.length === 0) {
+            targets.push(character);
+        }
         return targets;
     }
 
