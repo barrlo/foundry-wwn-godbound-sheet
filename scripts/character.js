@@ -235,8 +235,54 @@ export const setGifts = owner => {
     };
 };
 
-export const onAddGreaterGiftClick = () => {
-    console.log('onAddGreaterGiftClick');
+export const onAddGreaterGiftClick = async (event, owner) => {
+    event.preventDefault();
+
+    const dialogTemplate = 'modules/foundry-wwn-godbound-sheet/scripts/templates/dialogs/new-gift.hbs';
+    const dialogContent = await renderTemplate(dialogTemplate, {
+        description: '',
+        enrichedDescription: '',
+        name: 'New Gift',
+        source: '',
+        time: ''
+    });
+    const popUpDialog = new Dialog(
+        {
+            title: 'Add Gift',
+            content: dialogContent,
+            buttons: {
+                addItem: {
+                    label: 'Add Gift',
+                    callback: async html => {
+                        const description = html.find('#name').val();
+                        const name = html.find('#name').val();
+                        const source = html.find('#name').val();
+                        const time = html.find('#name').val();
+
+                        const itemData = {
+                            description,
+                            name,
+                            source,
+                            time
+                        };
+                        console.log(itemData);
+                        // this.actor.createEmbeddedDocuments('Item', [itemData]);
+                        console.log(owner.update);
+                    }
+                },
+                close: {
+                    label: 'Cancel'
+                }
+            },
+            default: 'addItem'
+        },
+        {
+            failCallback: () => {
+                return;
+            }
+        }
+    );
+    popUpDialog.render(true);
 };
 
 export const onAddLesserGiftClick = () => {
@@ -246,7 +292,7 @@ export const onAddLesserGiftClick = () => {
 export const rollFrayDice = async owner => {
     const rollParts = [owner.system.godbound.frayDice];
     const data = {
-        actor: this,
+        actor: owner,
         roll: {
             type: 'fraydice'
         }
@@ -256,7 +302,7 @@ export const rollFrayDice = async owner => {
         parts: rollParts,
         data: data,
         skipDialog: true,
-        speaker: ChatMessage.getSpeaker({actor: this}),
+        speaker: ChatMessage.getSpeaker({actor: owner}),
         flavor: 'Fray Dice',
         title: 'Fray Dice'
     });
