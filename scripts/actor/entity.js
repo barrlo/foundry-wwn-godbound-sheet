@@ -436,6 +436,7 @@ export class BarrloActor extends Actor {
     }
 
     async targetAttack(data, type, options) {
+        console.log('targetAttack');
         if (game.user.targets.size > 0) {
             for (let t of game.user.targets.values()) {
                 data.roll.target = t;
@@ -455,108 +456,43 @@ export class BarrloActor extends Actor {
         const dmgParts = [];
         const rollLabels = [];
         const dmgLabels = [];
-        // const weaponShock = attData.item.system.shock.damage;
-        let statAttack, statValue; // skillAttack, skillValue;
+        let statAttack, statValue;
         if (data.character) {
-            console.log('>>> here');
+            console.log('>>> here', attData);
             statAttack = attData.item.system.score;
-            // skillAttack = attData.item.system.skill;
-            // if (!skillAttack) {
-            //     return ui.notifications.error('No skill set for this weapon. Please edit weapon and enter a skill.');
-            // }
-            // skillValue = this.items.find(
-            //     item => item.type === 'skill' && item.name.toLowerCase() === skillAttack.toLowerCase()
-            // ).system.ownedLevel;
             statValue = this.system.scores[statAttack].mod;
         }
 
-        // const isNPC = attData.actor.type !== 'character';
-        // const ammo = attData.item.system.ammo;
-        // const ammoItem = ammo
-        //     ? attData.actor.items.find(
-        //           item => item.name.toLowerCase().includes(ammo.toLowerCase()) && item.system.charges.value != null
-        //       )
-        //     : undefined;
-        // if (!isNPC && ammo && (ammoItem === undefined || ammoItem.system.charges.value === 0)) {
-        //     return ui.notifications.error(`No ${ammo} remaining.`);
-        // }
-
-        let readyState = '';
         let label = game.i18n.format('WWN.roll.attacks', {
             name: this.name
         });
         if (!attData.item) {
             dmgParts.push('1d6');
         } else {
-            if (data.character) {
-                if (attData.item.system.equipped) {
-                    readyState = game.i18n.format('WWN.roll.readied');
-                } else if (attData.item.system.stowed) {
-                    readyState = game.i18n.format('WWN.roll.stowed');
-                } else {
-                    readyState = game.i18n.format('WWN.roll.notCarried');
-                }
-            }
+            console.log('attData', attData);
             label = game.i18n.format('WWN.roll.attacksWith', {
                 name: attData.item.name,
-                readyState: readyState
+                readyState: ''
             });
             dmgParts.push(attData.item.system.damage);
         }
-
-        // if (data.character) {
-        //     if (data.warrior) {
-        //         const levelRoundedUp = Math.ceil(this.system.details.level / 2);
-        //         attData.item.system.shockTotal = statValue + weaponShock + levelRoundedUp;
-        //     } else {
-        //         attData.item.system.shockTotal = statValue + weaponShock;
-        //     }
-        //     if (attData.item.system.skillDamage) {
-        //         attData.item.system.shockTotal = attData.item.system.shockTotal + skillValue;
-        //     }
-        // } else {
-        //     attData.item.system.shockTotal = Number(this.system.damageBonus) + Number(attData.item.system.shock.damage);
-        // }
         rollParts.push(data.thac0.bba.toString());
         rollLabels.push(`+${data.thac0.bba} (attack bonus)`);
 
-        // TODO: Add range selector in dialogue if missile attack.
-        /* if (options.type == "missile") {
-          rollParts.push(
-
-          );
-        } */
         if (data.character) {
-            // const unskilledAttack = attData.item.system.tags.find(weapon => weapon.title === 'CB') ? 0 : -2;
             rollParts.push(statValue);
             rollLabels.push(`+${statValue} (${statAttack})`);
-            // if (skillValue === -1) {
-            //     rollParts.push(unskilledAttack);
-            //     rollLabels.push(`${unskilledAttack} (unskilled penalty)`);
-            // } else {
-            //     rollParts.push(skillValue);
-            //     rollLabels.push(`+${skillValue} (${skillAttack})`);
-            // }
         }
 
-        if (attData.item && attData.item.system.bonus) {
-            rollParts.push(attData.item.system.bonus);
-            rollLabels.push(`+${attData.item.system.bonus} (weapon bonus)`);
-        }
+        // if (attData.item && attData.item.system.bonus) {
+        //     rollParts.push(attData.item.system.bonus);
+        //     rollLabels.push(`+${attData.item.system.bonus} (weapon bonus)`);
+        // }
         let thac0 = data.thac0.value;
 
         if (data.character) {
             dmgParts.push(statValue);
             dmgLabels.push(`+${statValue} (${statAttack})`);
-            // if (data.warrior) {
-            //     const levelRoundedUp = Math.ceil(data.details.level / 2);
-            //     dmgParts.push(levelRoundedUp);
-            //     dmgLabels.push(`+${levelRoundedUp} (warrior bonus)`);
-            // }
-            // if (attData.item.system.skillDamage) {
-            //     dmgParts.push(skillValue);
-            //     dmgLabels.push(`+${skillValue} (${skillAttack})`);
-            // }
         } else {
             dmgParts.push(this.system.damageBonus);
             dmgLabels.push(`+${this.system.damageBonus.toString()} (damage bonus)`);
