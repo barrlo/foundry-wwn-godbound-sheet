@@ -191,7 +191,6 @@ export class BarrloDice {
         rollTitle = null,
         dmgTitle = null
     } = {}) {
-        console.log('sendAttackRoll');
         const template = 'modules/foundry-wwn-godbound-sheet/scripts/templates/chat/roll-attack.html';
 
         let chatData = {
@@ -199,42 +198,8 @@ export class BarrloDice {
             speaker: speaker
         };
 
-        // Include charge bonus
-        // if (form !== null && form.charge.checked) {
-        //     parts.push('2');
-        //     rollTitle += ' +2 (charge)';
-        //
-        //     const actor = game.actors.get(speaker.actor);
-        //     const token = game.canvas.tokens.get(speaker.token).document.delta;
-        //     const linked = game.canvas.tokens.get(speaker.token).document.actorLink;
-        //     const effectTarget = linked ? actor : token;
-        //     const acTarget = actor.type === 'character' ? 'system.aac.mod' : 'system.aac.value';
-        //
-        //     effectTarget.createEmbeddedDocuments('ActiveEffect', [
-        //         {
-        //             name: 'Charge',
-        //             icon: 'icons/environment/people/charge.webp',
-        //             origin: `Actor.${speaker.actor}`,
-        //             'duration.rounds': 1,
-        //             changes: [
-        //                 {
-        //                     key: acTarget,
-        //                     mode: 2,
-        //                     value: '-2'
-        //                 },
-        //                 {
-        //                     key: 'system.thac0.bba',
-        //                     mode: 2,
-        //                     value: 2
-        //                 }
-        //             ]
-        //         }
-        //     ]);
-        // }
-
         // Optionally include a situational bonus
         if (form !== null && form.bonus.value) {
-            console.log('bonus value?');
             parts.push(form.bonus.value);
         }
 
@@ -276,7 +241,6 @@ export class BarrloDice {
             roll.render().then(r => {
                 templateData.rollWWN = r;
                 dmgRoll.render().then(dr => {
-                    console.log('what is this?', dmgRoll._total);
                     templateData.rollDamage = dr;
                     templateData.chartDamage = 0;
 
