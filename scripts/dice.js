@@ -80,7 +80,7 @@ export class BarrloDice {
         form = null,
         rollTitle = null
     } = {}) {
-        const template = 'systems/wwn/templates/chat/roll-result.html';
+        const template = 'modules/foundry-wwn-godbound-sheet/scripts/templates/chat/roll-result.html';
 
         let chatData = {
             user: game.user.id,
@@ -191,7 +191,8 @@ export class BarrloDice {
         rollTitle = null,
         dmgTitle = null
     } = {}) {
-        const template = 'systems/wwn/templates/chat/roll-attack.html';
+        console.log('sendAttackRoll');
+        const template = 'modules/foundry-wwn-godbound-sheet/scripts/templates/chat/roll-attack.html';
 
         let chatData = {
             user: game.user.id,
@@ -199,40 +200,41 @@ export class BarrloDice {
         };
 
         // Include charge bonus
-        if (form !== null && form.charge.checked) {
-            parts.push('2');
-            rollTitle += ' +2 (charge)';
-
-            const actor = game.actors.get(speaker.actor);
-            const token = game.canvas.tokens.get(speaker.token).document.delta;
-            const linked = game.canvas.tokens.get(speaker.token).document.actorLink;
-            const effectTarget = linked ? actor : token;
-            const acTarget = actor.type === 'character' ? 'system.aac.mod' : 'system.aac.value';
-
-            effectTarget.createEmbeddedDocuments('ActiveEffect', [
-                {
-                    name: 'Charge',
-                    icon: 'icons/environment/people/charge.webp',
-                    origin: `Actor.${speaker.actor}`,
-                    'duration.rounds': 1,
-                    changes: [
-                        {
-                            key: acTarget,
-                            mode: 2,
-                            value: '-2'
-                        },
-                        {
-                            key: 'system.thac0.bba',
-                            mode: 2,
-                            value: 2
-                        }
-                    ]
-                }
-            ]);
-        }
+        // if (form !== null && form.charge.checked) {
+        //     parts.push('2');
+        //     rollTitle += ' +2 (charge)';
+        //
+        //     const actor = game.actors.get(speaker.actor);
+        //     const token = game.canvas.tokens.get(speaker.token).document.delta;
+        //     const linked = game.canvas.tokens.get(speaker.token).document.actorLink;
+        //     const effectTarget = linked ? actor : token;
+        //     const acTarget = actor.type === 'character' ? 'system.aac.mod' : 'system.aac.value';
+        //
+        //     effectTarget.createEmbeddedDocuments('ActiveEffect', [
+        //         {
+        //             name: 'Charge',
+        //             icon: 'icons/environment/people/charge.webp',
+        //             origin: `Actor.${speaker.actor}`,
+        //             'duration.rounds': 1,
+        //             changes: [
+        //                 {
+        //                     key: acTarget,
+        //                     mode: 2,
+        //                     value: '-2'
+        //                 },
+        //                 {
+        //                     key: 'system.thac0.bba',
+        //                     mode: 2,
+        //                     value: 2
+        //                 }
+        //             ]
+        //         }
+        //     ]);
+        // }
 
         // Optionally include a situational bonus
         if (form !== null && form.bonus.value) {
+            console.log('bonus value?');
             parts.push(form.bonus.value);
         }
 
@@ -274,7 +276,18 @@ export class BarrloDice {
             roll.render().then(r => {
                 templateData.rollWWN = r;
                 dmgRoll.render().then(dr => {
+                    console.log('what is this?', dmgRoll._total);
                     templateData.rollDamage = dr;
+                    templateData.chartDamage = 0;
+
+                    if (dmgRoll._total >= 2 && dmgRoll._total <= 5) {
+                        templateData.chartDamage = 1;
+                    } else if (dmgRoll._total >= 6 && dmgRoll._total <= 9) {
+                        templateData.chartDamage = 2;
+                    } else if (dmgRoll._total >= 10) {
+                        templateData.chartDamage = 4;
+                    }
+
                     renderTemplate(template, templateData).then(content => {
                         chatData.content = content;
                         // 2 Step Dice So Nice
@@ -380,7 +393,7 @@ export class BarrloDice {
         dmgTitle = null
     } = {}) {
         let rolled = false;
-        const template = 'systems/wwn/templates/chat/roll-dialog.html';
+        const template = 'modules/foundry-wwn-godbound-sheet/scripts/templates/chat/roll-dialog.html';
         let dialogData = {
             formula: parts.join(' '),
             data: data,

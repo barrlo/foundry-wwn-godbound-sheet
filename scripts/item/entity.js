@@ -199,7 +199,8 @@ export class BarrloItem extends Item {
     }
 
     rollWeapon(options = {}) {
-        let isNPC = this.actor.type != 'character';
+        console.log('rollWeapon');
+        let isNPC = this.actor.type !== 'character';
         const data = this.system;
         let type = isNPC ? 'attack' : 'melee';
 
