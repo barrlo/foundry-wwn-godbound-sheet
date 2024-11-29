@@ -40,8 +40,8 @@ export class BarrloActorSheet extends ActorSheet {
                     'system.godbound.gifts': gifts
                 });
             } else if (
-                (this.actor.system.godbound.gifts.greater || []).length === 0 &&
-                (this.actor.system.godbound.gifts.lesser || []).length === 0
+                (this.actor.system.godbound.gifts.greater || []).length !== gifts.greater.length ||
+                (this.actor.system.godbound.gifts.lesser || []).length !== gifts.lesser.length
             ) {
                 this.actor.update({
                     'system.godbound.gifts': gifts

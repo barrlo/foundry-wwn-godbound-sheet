@@ -214,13 +214,15 @@ export const setGifts = owner => {
         // skipped: faerie queen, lich king, peak human
     ];
 
-    const arts = owner.items.filter(item => item.type === 'art');
+    const arts = owner.items.filter(
+        item => item.type === 'art' || (item.type === 'item' && item.system.type === 'gift')
+    );
 
     const greater = arts
-        .filter(art => greaterList.includes(art.name.toLowerCase()))
+        .filter(art => greaterList.includes(art.name.toLowerCase()) || art.system.isGreater)
         .map(gift => ({...gift, ...gift.system}));
     const lesser = arts
-        .filter(art => lesserList.includes(art.name.toLowerCase()))
+        .filter(art => lesserList.includes(art.name.toLowerCase()) || !art.system.isGreater)
         .map(gift => ({...gift, ...gift.system}));
 
     const pointsSpent = greater.length * 2 + lesser.length;
@@ -235,58 +237,22 @@ export const setGifts = owner => {
     };
 };
 
-export const onAddGreaterGiftClick = async (event, owner) => {
+export const onAddGiftClick = async (event, owner, isGreater) => {
     event.preventDefault();
 
-    const dialogTemplate = 'modules/foundry-wwn-godbound-sheet/scripts/templates/dialogs/new-gift.hbs';
-    const dialogContent = await renderTemplate(dialogTemplate, {
-        description: '',
-        enrichedDescription: '',
+    const itemData = {
         name: 'New Gift',
-        source: '',
-        time: ''
-    });
-    const popUpDialog = new Dialog(
-        {
-            title: 'Add Gift',
-            content: dialogContent,
-            buttons: {
-                addItem: {
-                    label: 'Add Gift',
-                    callback: async html => {
-                        const description = html.find('#name').val();
-                        const name = html.find('#name').val();
-                        const source = html.find('#name').val();
-                        const time = html.find('#name').val();
-
-                        const itemData = {
-                            description,
-                            name,
-                            source,
-                            time
-                        };
-                        console.log(itemData);
-                        // this.actor.createEmbeddedDocuments('Item', [itemData]);
-                        console.log(owner.update);
-                    }
-                },
-                close: {
-                    label: 'Cancel'
-                }
-            },
-            default: 'addItem'
+        system: {
+            description: '',
+            effort: 0,
+            isGreater,
+            source: '',
+            time: '',
+            type: 'gift'
         },
-        {
-            failCallback: () => {
-                return;
-            }
-        }
-    );
-    popUpDialog.render(true);
-};
-
-export const onAddLesserGiftClick = () => {
-    console.log('onAddLesserGiftClick');
+        type: 'item'
+    };
+    owner.createEmbeddedDocuments('Item', [itemData]);
 };
 
 export const rollFrayDice = async owner => {

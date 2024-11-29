@@ -2,7 +2,7 @@ import {BarrloActorSheet} from './actor-sheet.js';
 import {BarrloCharacterModifiers} from '../dialog/character-modifiers.js';
 import {BarrloAdjustCurrency} from '../dialog/adjust-currency.js';
 import {BarrloCharacterCreator} from '../dialog/character-creation.js';
-import {onAddGreaterGiftClick, onAddLesserGiftClick, rollFrayDice, setGifts} from '../character.js';
+import {onAddGiftClick, rollFrayDice} from '../character.js';
 import {onAddProjectClick, onDeleteProjectClick, onEditProjectClick, onProjectInputChange} from '../projects.js';
 
 /**
@@ -45,7 +45,7 @@ export class BarrloActorSheetCharacter extends BarrloActorSheet {
         let [items, weapons, armors, abilities, spells, arts, foci, skills] = this.actor.items.reduce(
             (arr, item) => {
                 // Classify items into types
-                if (item.type === 'item') {
+                if (item.type === 'item' && item.system && item.system.type !== 'gift') {
                     arr[0].push(item);
                 } else if (item.type === 'weapon') {
                     arr[1].push(item);
@@ -301,8 +301,29 @@ export class BarrloActorSheetCharacter extends BarrloActorSheet {
             await rollFrayDice(this.actor);
         });
 
-        html.find('#add-greater-gift-button').on('click', evt => onAddGreaterGiftClick(evt, this.actor));
-        html.find('#add-lesser-gift-button').on('click', evt => onAddLesserGiftClick(evt, this.actor));
+        html.find('#add-greater-gift-button').on('click', evt => onAddGiftClick(evt, this.actor, true));
+        html.find('#add-lesser-gift-button').on('click', evt => onAddGiftClick(evt, this.actor, false));
+        html.find('.edit-greater-gift-button').on('click', ev => {
+            const giftName = ev.currentTarget.dataset.giftName;
+            const gift = this.actor.system.godbound.gifts.greater.find(gift => gift.name === giftName);
+            console.log(gift);
+            gift.sheet.render(true);
+        });
+        html.find('.edit-lesser-gift-button').on('click', ev => {
+            const li = $(ev.currentTarget).parents('.item');
+            const item = this.actor.system.godbound.gifts.lesser.get(li.data('itemId'));
+            item.sheet.render(true);
+        });
+        html.find('.delete-greater-gift-button').on('click', ev => {
+            const li = $(ev.currentTarget).parents('.item');
+            this.actor.deleteEmbeddedDocuments('Item', [li.data('itemId')]);
+            li.slideUp(200, () => this.render(false));
+        });
+        html.find('.delete-lesser-gift-button').on('click', ev => {
+            const li = $(ev.currentTarget).parents('.item');
+            this.actor.deleteEmbeddedDocuments('Item', [li.data('itemId')]);
+            li.slideUp(200, () => this.render(false));
+        });
         //endregion
 
         html.find('.ability-score .attribute-name a').click(ev => {

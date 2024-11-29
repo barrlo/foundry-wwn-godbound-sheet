@@ -24,7 +24,7 @@
                 <div class="item-controls">
                     <a class="item-control effort-reset" title='{{localize "WWN.spells.ResetEffort"}}'><i
                         class="fas fa-sync"></i></a>
-                    <a id="add-greater-gift-button" class="item-control" data-type="art" title="{{localize 'WWN.Add'}}"><i
+                    <a id="add-greater-gift-button" class="item-control" data-type="art" title="Add"><i
                         class="fa fa-plus"></i></a>
                 </div>
             </div>
@@ -50,9 +50,10 @@
                                 <input value="{{gift.time}}" type="text" />
                             </div>
                             <div class="item-controls">
-                                <a class="item-control item-edit" title='{{localize "WWN.Edit"}}'><i
+                                <a class="item-control edit-greater-gift-button" title='{{localize "WWN.Edit"}}'
+                                   data-gift-name="{{gift.name}}"><i
                                     class="fas fa-edit"></i></a>
-                                <a class="item-control item-delete" title='{{localize "WWN.Delete"}}'><i
+                                <a class="item-control delete-greater-gift-button" title='{{localize "WWN.Delete"}}'><i
                                     class="fas fa-trash"></i></a>
                             </div>
                         </div>
@@ -78,7 +79,7 @@
                 <div class="item-controls">
                     <a class="item-control effort-reset" title='{{localize "WWN.spells.ResetEffort"}}'><i
                         class="fas fa-sync"></i></a>
-                    <a id="add-lesser-gift-button" class="item-control" data-type="art" title="{{localize 'WWN.Add'}}"><i
+                    <a id="add-lesser-gift-button" class="item-control" data-type="art" title="Add"><i
                         class="fa fa-plus"></i></a>
                 </div>
             </div>
@@ -101,12 +102,13 @@
                                 <input value="{{gift.effort}}" type="number" data-dtype="Number" />
                             </div>
                             <div class="field-short artTime">
-                                <input value="{{gift.time}}" type="text" />
+                                <input value="{{gift.time}}" type="text" disabled />
                             </div>
                             <div class="item-controls">
-                                <a class="item-control item-edit" title='{{localize "WWN.Edit"}}'><i
+                                <a class="item-control edit-lesser-gift-button" title="{{localize "WWN.Edit"}}"
+                                   data-gift-name="{{gift.name}}"><i
                                     class="fas fa-edit"></i></a>
-                                <a class="item-control item-delete" title='{{localize "WWN.Delete"}}'><i
+                                <a class="item-control delete-lesser-gift-button" title="{{localize "WWN.Delete"}}"><i
                                     class="fas fa-trash"></i></a>
                             </div>
                         </div>
