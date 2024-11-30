@@ -1,11 +1,11 @@
-<section class="inventory" data-base-size="310">
+<section class="inventory gifts" data-base-size="310">
     <div class="flexrow">
         <div class="flexrow">
-            <label for="remaining-gift-points">Remaining Gift Points</label>
+            <label for="remaining-gift-points">Remaining Gift Points:</label>
             <input id="remaining-gift-points" value="{{system.godbound.gifts.remainingPoints}}" disabled />
         </div>
         <div class="flexrow">
-            <label for="total-gift-points">Total Gift Points</label>
+            <label for="total-gift-points">Total Gift Points:</label>
             <input id="total-gift-points" value="{{system.godbound.gifts.totalPoints}}" disabled />
         </div>
     </div>
@@ -18,8 +18,8 @@
                 <div class="field-short" title="Effort Committed">Effort</div>
                 <div class="field-long" title="Time">Time</div>
                 <div class="item-controls">
-                    <a class="item-control effort-reset" title="Reset Effort"><i class="fas fa-sync"></i></a>
-                    <a id="add-greater-gift-button" class="item-control" title="Add"><i class="fa fa-plus"></i></a>
+                    <div class="item-control effort-reset button" title="Reset Effort"><i class="fas fa-sync"></i></div>
+                    <div id="add-greater-gift-button" class="item-control button" title="Add"><i class="fa fa-plus"></i></div>
                 </div>
             </div>
             <ol class="item-list">
@@ -44,12 +44,12 @@
                                 <input value="{{gift.system.time}}" type="text" disabled />
                             </div>
                             <div class="item-controls">
-                                <a class="item-control edit-greater-gift-button" title="Edit" data-gift-id="{{gift._id}}">
+                                <div class="item-control button edit-greater-gift-button" title="Edit" data-gift-id="{{gift._id}}">
                                     <i class="fas fa-edit"></i>
-                                </a>
-                                <a class="item-control delete-gift-button" title="Delete" data-gift-id="{{gift._id}}">
+                                </div>
+                                <div class="item-control button delete-gift-button" title="Delete" data-gift-id="{{gift._id}}">
                                     <i class="fas fa-trash"></i>
-                                </a>
+                                </div>
                             </div>
                         </div>
                     </li>
@@ -66,8 +66,8 @@
                 <div class="field-short" title="Effort Committed">Effort</div>
                 <div class="field-long" title="Time">Time</div>
                 <div class="item-controls">
-                    <a class="item-control effort-reset" title="Reset Effort"><i class="fas fa-sync"></i></a>
-                    <a id="add-lesser-gift-button" class="item-control" title="Add"><i class="fa fa-plus"></i></a>
+                    <div class="item-control effort-reset button" title="Reset Effort"><i class="fas fa-sync"></i></div>
+                    <div id="add-lesser-gift-button" class="item-control button" title="Add"><i class="fa fa-plus"></i></div>
                 </div>
             </div>
             <ol class="item-list">
@@ -92,12 +92,12 @@
                                 <input value="{{gift.system.time}}" type="text" disabled />
                             </div>
                             <div class="item-controls">
-                                <a class="item-control edit-lesser-gift-button" title="Edit" data-gift-id="{{gift._id}}">
+                                <div class="item-control button edit-lesser-gift-button" title="Edit" data-gift-id="{{gift._id}}">
                                     <i class="fas fa-edit"></i>
-                                </a>
-                                <a class="item-control delete-gift-button" title="Delete" data-gift-id="{{gift._id}}">
+                                </div>
+                                <div class="item-control button delete-gift-button" title="Delete" data-gift-id="{{gift._id}}">
                                     <i class="fas fa-trash"></i>
-                                </a>
+                                </div>
                             </div>
                         </div>
                     </li>

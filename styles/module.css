@@ -72,6 +72,21 @@
     line-height: 24px;
 }
 
+.sheet .godbound .sheet-body .inventory.gifts .field-long {
+    flex-basis: 90px;
+}
+
+.sheet .godbound .sheet-body .inventory.gifts .item-controls {
+    display: flex;
+    flex-basis: 80px;
+    justify-content: flex-end;
+}
+
+.godbound .sheet-body .inventory.gifts .button {
+    cursor: pointer;
+    min-width: 30px;
+}
+
 .godbound.gift-sheet .sheet-header {
     border-bottom: solid 1px #252525;
     margin-bottom: 5px;
