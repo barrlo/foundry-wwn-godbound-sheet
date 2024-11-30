@@ -218,12 +218,8 @@ export const setGifts = owner => {
         item => item.type === 'art' || (item.type === 'item' && item.system.type === 'gift')
     );
 
-    const greater = arts
-        .filter(art => greaterList.includes(art.name.toLowerCase()) || art.system.isGreater)
-        .map(gift => ({...gift, ...gift.system}));
-    const lesser = arts
-        .filter(art => lesserList.includes(art.name.toLowerCase()) || !art.system.isGreater)
-        .map(gift => ({...gift, ...gift.system}));
+    const greater = arts.filter(art => greaterList.includes(art.name.toLowerCase()) || art.system.isGreater);
+    const lesser = arts.filter(art => lesserList.includes(art.name.toLowerCase()) || !art.system.isGreater);
 
     const pointsSpent = greater.length * 2 + lesser.length;
     const totalPoints = 6 + (owner.system.details.level - 1) * 2;

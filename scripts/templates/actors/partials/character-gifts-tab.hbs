@@ -31,7 +31,7 @@
             <ol class="item-list">
                 {{#each system.godbound.gifts.greater as |gift|}}
                     <li class="item-entry">
-                        <div class="item flexrow" data-item-id="{{gift.id}}">
+                        <div class="item flexrow">
                             <div class="item-name item-rollable flexrow">
                                 <div class="item-image" style="background-image: url({{img}})"></div>
                                 <a>
@@ -41,7 +41,7 @@
                                 </a>
                             </div>
                             <div class="field-long artSource">
-                                <input value="{{gift.source}}" type="text" placeholder="High Mage" />
+                                <input value="{{gift.source}}" type="text" placeholder="Word" />
                             </div>
                             <div class="field-short artEffort">
                                 <input value="{{gift.effort}}" type="number" data-dtype="Number" />
@@ -50,11 +50,12 @@
                                 <input value="{{gift.time}}" type="text" />
                             </div>
                             <div class="item-controls">
-                                <a class="item-control edit-greater-gift-button" title='{{localize "WWN.Edit"}}'
-                                   data-gift-name="{{gift.name}}"><i
-                                    class="fas fa-edit"></i></a>
-                                <a class="item-control delete-greater-gift-button" title='{{localize "WWN.Delete"}}'><i
-                                    class="fas fa-trash"></i></a>
+                                <a class="item-control edit-greater-gift-button" title="Edit" data-gift-id="{{gift._id}}">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a class="item-control delete-gift-button" title="Delete" data-gift-id="{{gift._id}}">
+                                    <i class="fas fa-trash"></i>
+                                </a>
                             </div>
                         </div>
                     </li>
@@ -86,7 +87,7 @@
             <ol class="item-list">
                 {{#each system.godbound.gifts.lesser as |gift|}}
                     <li class="item-entry">
-                        <div class="item flexrow" data-item-id="{{gift.id}}">
+                        <div class="item flexrow">
                             <div class="item-name item-rollable flexrow">
                                 <div class="item-image" style="background-image: url({{img}})"></div>
                                 <a>
@@ -105,11 +106,12 @@
                                 <input value="{{gift.time}}" type="text" disabled />
                             </div>
                             <div class="item-controls">
-                                <a class="item-control edit-lesser-gift-button" title="{{localize "WWN.Edit"}}"
-                                   data-gift-name="{{gift.name}}"><i
-                                    class="fas fa-edit"></i></a>
-                                <a class="item-control delete-lesser-gift-button" title="{{localize "WWN.Delete"}}"><i
-                                    class="fas fa-trash"></i></a>
+                                <a class="item-control edit-lesser-gift-button" title="Edit" data-gift-id="{{gift._id}}">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a class="item-control delete-gift-button" title="Delete" data-gift-id="{{gift._id}}">
+                                    <i class="fas fa-trash"></i>
+                                </a>
                             </div>
                         </div>
                     </li>

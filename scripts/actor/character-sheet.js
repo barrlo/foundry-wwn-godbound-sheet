@@ -314,15 +314,9 @@ export class BarrloActorSheetCharacter extends BarrloActorSheet {
             const item = this.actor.system.godbound.gifts.lesser.get(li.data('itemId'));
             item.sheet.render(true);
         });
-        html.find('.delete-greater-gift-button').on('click', ev => {
-            const li = $(ev.currentTarget).parents('.item');
-            this.actor.deleteEmbeddedDocuments('Item', [li.data('itemId')]);
-            li.slideUp(200, () => this.render(false));
-        });
-        html.find('.delete-lesser-gift-button').on('click', ev => {
-            const li = $(ev.currentTarget).parents('.item');
-            this.actor.deleteEmbeddedDocuments('Item', [li.data('itemId')]);
-            li.slideUp(200, () => this.render(false));
+        html.find('.delete-gift-button').on('click', ev => {
+            const giftId = ev.currentTarget.dataset.giftId;
+            this.actor.deleteEmbeddedDocuments('Item', [giftId]);
         });
         //endregion
 
