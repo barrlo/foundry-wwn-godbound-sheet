@@ -1,9 +1,13 @@
+.wwn.sheet.actor nav.sheet-tabs {
+    top: 375px;
+}
+
 .godbound .add-project-button {
     cursor: pointer;
 }
 
 .godbound .project-card {
-    border: 2px solid black;
+    border: 2px solid #252525;
     border-radius: 5px;
     margin: 5px 0;
     padding: 5px 5px 0;
@@ -66,4 +70,54 @@
 
 .godbound .project-card .project-complete-button {
     line-height: 24px;
+}
+
+.sheet .godbound .sheet-body .inventory.gifts .field-long {
+    flex-basis: 90px;
+}
+
+.sheet .godbound .sheet-body .inventory.gifts .item-controls {
+    display: flex;
+    flex-basis: 80px;
+    justify-content: flex-end;
+}
+
+.godbound .sheet-body .inventory.gifts .button {
+    cursor: pointer;
+    margin-left: 10px;
+    min-width: 20px;
+}
+
+.godbound.gift-sheet .sheet-header {
+    border-bottom: solid 1px #252525;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+}
+
+.godbound.gift-sheet .gift-field-row {
+    display: grid;
+    grid-template-columns: 266px 266px;
+    margin-bottom: 5px;
+}
+
+.godbound.gift-sheet .gift-field-row input, .godbound.gift-sheet .gift-field-row select {
+    height: 30px;
+}
+
+.godbound.gift-sheet .gift-label {
+    background: #252525;
+    color: whitesmoke;
+    display: block;
+    line-height: 30px;
+    min-height: 30px;
+    padding: 0 5px;
+}
+
+.wwn.sheet.actor .sheet-body .inventory .item-list .gift-rollable:hover .item-image {
+    background-image: url("/icons/svg/d20-grey.svg") !important;
+    cursor: pointer;
+}
+
+.wwn.sheet.actor .sheet-body .inventory .item-list .gift-rollable .item-image:hover {
+    background-image: url("/icons/svg/d20-black.svg") !important;
 }

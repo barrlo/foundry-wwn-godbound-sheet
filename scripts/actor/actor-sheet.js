@@ -1,5 +1,6 @@
 import {BarrloActor} from './entity.js';
 import {BarrloEntityTweaks} from '../dialog/entity-tweaks.js';
+import {setGifts} from '../character.js';
 
 export class BarrloActorSheet extends ActorSheet {
     constructor(...args) {
@@ -17,12 +18,33 @@ export class BarrloActorSheet extends ActorSheet {
         data.isNew = this.actor.isNew();
 
         if (this.actor.type === 'character') {
+            const gifts = setGifts(this.actor);
+
             if (!this.actor.system.godbound) {
-                this.actor.update({'system.godbound': {
+                this.actor.update({
+                    'system.godbound': {
                         frayDice: '1d8',
-                        gifts: [],
+                        gifts,
                         projects: []
-                    }});
+                    }
+                });
+            } else if (!this.actor.system.godbound.gifts) {
+                this.actor.update({
+                    'system.godbound': {
+                        ...this.actor.system.godbound,
+                        gifts
+                    }
+                });
+            } else if (Array.isArray(this.actor.system.godbound.gifts)) {
+                this.actor.update({
+                    'system.godbound.gifts': gifts
+                });
+            } else if (
+                JSON.stringify(this.actor.system.godbound.gifts) !== JSON.stringify(gifts)
+            ) {
+                this.actor.update({
+                    'system.godbound.gifts': gifts
+                });
             }
         }
 

@@ -35,7 +35,12 @@ export class BarrloItemSheet extends ItemSheet {
 
     /** @override */
     get template() {
-        const path = 'systems/wwn/templates/items/';
+        const path = 'modules/foundry-wwn-godbound-sheet/scripts/templates/items/';
+
+        if (this.item.system && this.item.system.type === 'gift') {
+            return `${path}/gift-sheet.hbs`;
+        }
+
         return `${path}/${this.item.type}-sheet.html`;
     }
 

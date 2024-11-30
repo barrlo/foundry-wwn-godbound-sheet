@@ -2,8 +2,8 @@ import {BarrloActorSheet} from './actor-sheet.js';
 import {BarrloCharacterModifiers} from '../dialog/character-modifiers.js';
 import {BarrloAdjustCurrency} from '../dialog/adjust-currency.js';
 import {BarrloCharacterCreator} from '../dialog/character-creation.js';
-import {rollFrayDice} from '../charcter.mjs';
-import {onAddProjectClick, onDeleteProjectClick, onEditProjectClick, onProjectInputChange} from '../projects.mjs';
+import {onAddGiftClick, rollFrayDice} from '../character.js';
+import {onAddProjectClick, onDeleteProjectClick, onEditProjectClick, onProjectInputChange} from '../projects.js';
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -45,7 +45,7 @@ export class BarrloActorSheetCharacter extends BarrloActorSheet {
         let [items, weapons, armors, abilities, spells, arts, foci, skills] = this.actor.items.reduce(
             (arr, item) => {
                 // Classify items into types
-                if (item.type === 'item') {
+                if (item.type === 'item' && item.system && item.system.type !== 'gift') {
                     arr[0].push(item);
                 } else if (item.type === 'weapon') {
                     arr[1].push(item);
@@ -147,6 +147,7 @@ export class BarrloActorSheetCharacter extends BarrloActorSheet {
      */
     async getData() {
         const data = super.getData();
+
         // Prepare owned items
         this._prepareItems(data);
 
@@ -280,14 +281,17 @@ export class BarrloActorSheetCharacter extends BarrloActorSheet {
         super.activateListeners(html);
 
         //region Godbound
-
         // have to use classes for these for now because using IDs seems to only apply it to the first one found
         html.find('.add-project-button').on('click', evt => onAddProjectClick(evt, this.actor));
         html.find('.edit-project-button').on('click', evt => onEditProjectClick(evt, this.actor));
         html.find('.delete-project-button').on('click', evt => onDeleteProjectClick(evt, this.actor));
         html.find('.project-name-input').on('change', evt => onProjectInputChange(evt, this.actor, 'name'));
-        html.find('.project-description-input').on('change', evt => onProjectInputChange(evt, this.actor, 'description'));
-        html.find('.project-difficulty-select').on('change', evt => onProjectInputChange(evt, this.actor, 'difficulty'));
+        html.find('.project-description-input').on('change', evt =>
+            onProjectInputChange(evt, this.actor, 'description')
+        );
+        html.find('.project-difficulty-select').on('change', evt =>
+            onProjectInputChange(evt, this.actor, 'difficulty')
+        );
         html.find('.project-scope-select').on('change', evt => onProjectInputChange(evt, this.actor, 'scope'));
         html.find('.project-resistance-input').on('change', evt => onProjectInputChange(evt, this.actor, 'resistance'));
         html.find('.project-dominion-input').on('change', evt => onProjectInputChange(evt, this.actor, 'dominion'));
@@ -295,6 +299,28 @@ export class BarrloActorSheetCharacter extends BarrloActorSheet {
 
         html.find('#fray-dice-roll').on('click', async () => {
             await rollFrayDice(this.actor);
+        });
+
+        html.find('#add-greater-gift-button').on('click', evt => onAddGiftClick(evt, this.actor, true));
+        html.find('#add-lesser-gift-button').on('click', evt => onAddGiftClick(evt, this.actor, false));
+        html.find('.edit-greater-gift-button').on('click', evt => {
+            const giftId = evt.currentTarget.dataset.giftId;
+            const gift = this.actor.items.get(giftId);
+            gift.sheet.render(true);
+        });
+        html.find('.edit-lesser-gift-button').on('click', evt => {
+            const giftId = evt.currentTarget.dataset.giftId;
+            const gift = this.actor.items.get(giftId);
+            gift.sheet.render(true);
+        });
+        html.find('.delete-gift-button').on('click', evt => {
+            const giftId = evt.currentTarget.dataset.giftId;
+            this.actor.deleteEmbeddedDocuments('Item', [giftId]);
+        });
+        html.find('.item .gift-rollable .item-image').on('click', evt => {
+            const giftId = evt.currentTarget.dataset.giftId;
+            const gift = this.document.items.get(giftId);
+            gift.useGift();
         });
         //endregion
 

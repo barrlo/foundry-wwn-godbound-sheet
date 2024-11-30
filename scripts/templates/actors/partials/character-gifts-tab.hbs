@@ -1,0 +1,108 @@
+<section class="inventory gifts" data-base-size="310">
+    <div class="flexrow">
+        <div class="flexrow">
+            <label for="remaining-gift-points">Remaining Gift Points:</label>
+            <input id="remaining-gift-points" value="{{system.godbound.gifts.remainingPoints}}" disabled />
+        </div>
+        <div class="flexrow">
+            <label for="total-gift-points">Total Gift Points:</label>
+            <input id="total-gift-points" value="{{system.godbound.gifts.totalPoints}}" disabled />
+        </div>
+    </div>
+    <div class="flexrow">
+        <div class="flex2">
+            <div class="item-titles flexrow">
+                <div class="item-caret"><i class="fas fa-caret-down"></i></div>
+                <div class="item-name">Greater Gifts</div>
+                <div class="field-long" title="Source">Source</div>
+                <div class="field-short" title="Effort Committed">Effort</div>
+                <div class="field-long" title="Time">Time</div>
+                <div class="item-controls">
+                    <div class="item-control effort-reset button" title="Reset Effort"><i class="fas fa-sync"></i></div>
+                    <div id="add-greater-gift-button" class="item-control button" title="Add"><i class="fa fa-plus"></i></div>
+                </div>
+            </div>
+            <ol class="item-list">
+                {{#each system.godbound.gifts.greater as |gift|}}
+                    <li class="item-entry">
+                        <div class="item flexrow">
+                            <div class="item-name gift-rollable flexrow">
+                                <div class="item-image" style="background-image: url({{img}})" data-gift-id="{{gift._id}}"></div>
+                                <a>
+                                    <h4 title="{{gift.name}}">
+                                        {{gift.name~}}
+                                    </h4>
+                                </a>
+                            </div>
+                            <div class="field-long artSource">
+                                <input value="{{gift.system.source}}" type="text" placeholder="Word" disabled />
+                            </div>
+                            <div class="field-short artEffort">
+                                <input value="{{gift.system.effort}}" type="number" disabled />
+                            </div>
+                            <div class="field-long artTime">
+                                <input value="{{gift.system.time}}" type="text" disabled />
+                            </div>
+                            <div class="item-controls">
+                                <div class="item-control button edit-greater-gift-button" title="Edit" data-gift-id="{{gift._id}}">
+                                    <i class="fas fa-edit"></i>
+                                </div>
+                                <div class="item-control button delete-gift-button" title="Delete" data-gift-id="{{gift._id}}">
+                                    <i class="fas fa-trash"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                {{/each}}
+            </ol>
+        </div>
+    </div>
+    <div class="flexrow">
+        <div class="flex2">
+            <div class="item-titles flexrow">
+                <div class="item-caret"><i class="fas fa-caret-down"></i></div>
+                <div class="item-name">Lesser Gifts</div>
+                <div class="field-long" title="Source">Source</div>
+                <div class="field-short" title="Effort Committed">Effort</div>
+                <div class="field-long" title="Time">Time</div>
+                <div class="item-controls">
+                    <div class="item-control effort-reset button" title="Reset Effort"><i class="fas fa-sync"></i></div>
+                    <div id="add-lesser-gift-button" class="item-control button" title="Add"><i class="fa fa-plus"></i></div>
+                </div>
+            </div>
+            <ol class="item-list">
+                {{#each system.godbound.gifts.lesser as |gift|}}
+                    <li class="item-entry">
+                        <div class="item flexrow">
+                            <div class="item-name gift-rollable flexrow">
+                                <div class="item-image" style="background-image: url({{img}})" data-gift-id="{{gift._id}}"></div>
+                                <a>
+                                    <h4 title="{{gift.name}}">
+                                        {{gift.name~}}
+                                    </h4>
+                                </a>
+                            </div>
+                            <div class="field-long artSource">
+                                <input value="{{gift.system.source}}" type="text" placeholder="Word" disabled />
+                            </div>
+                            <div class="field-short artEffort">
+                                <input value="{{gift.system.effort}}" type="number" disabled />
+                            </div>
+                            <div class="field-long artTime">
+                                <input value="{{gift.system.time}}" type="text" disabled />
+                            </div>
+                            <div class="item-controls">
+                                <div class="item-control button edit-lesser-gift-button" title="Edit" data-gift-id="{{gift._id}}">
+                                    <i class="fas fa-edit"></i>
+                                </div>
+                                <div class="item-control button delete-gift-button" title="Delete" data-gift-id="{{gift._id}}">
+                                    <i class="fas fa-trash"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                {{/each}}
+            </ol>
+        </div>
+    </div>
+</section>

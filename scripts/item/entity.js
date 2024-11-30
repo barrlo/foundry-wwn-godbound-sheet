@@ -49,21 +49,20 @@ export class BarrloItem extends Item {
 
         // Item properties
         const props = [];
-        const labels = this.labels;
 
-        if (this.type == 'weapon') {
+        if (this.type === 'weapon') {
             itemData.tags.forEach(t => props.push(t.value));
         }
-        if (this.type == 'spell') {
+        if (this.type === 'spell') {
             props.push(`${itemData.class} ${itemData.lvl}`, itemData.range, itemData.duration);
         }
-        if (itemData.hasOwnProperty('equipped')) {
+        if (itemData.hasOwnProperty('equipped') && this.system.type !== 'gift') {
             props.push(itemData.equipped ? 'Equipped' : 'Not Equipped');
         }
-        if (itemData.hasOwnProperty('stowed')) {
+        if (itemData.hasOwnProperty('stowed')  && this.system.type !== 'gift') {
             props.push(itemData.stowed ? 'Stowed' : 'Not Stowed');
         }
-        if (itemData.hasOwnProperty('prepared')) {
+        if (itemData.hasOwnProperty('prepared')  && this.system.type !== 'gift') {
             props.push(itemData.prepared ? 'Prepared' : 'Not Prepared');
         }
 
@@ -311,6 +310,29 @@ export class BarrloItem extends Item {
         }
     }
 
+    useGift() {
+        if (this.system.time) {
+            const sourceName = this.system.source;
+            if (sourceName === undefined) {
+                return ui.notifications.warn(`Please add class name to the Source field.`);
+            }
+
+            const currEffort = this.system.effort;
+            // const sourceVal = this.actor.system.classes[sourceName].value;
+            // const sourceMax = this.actor.system.classes[sourceName].max;
+            //
+            // if (sourceVal + 1 > sourceMax) {
+            //     return ui.notifications.warn('No Effort remaining!');
+            // }
+
+            this.update({'system.effort': currEffort + 1}).then(() => {
+                this.show({skipDialog: true});
+            });
+        } else {
+            this.show({skipDialog: true});
+        }
+    }
+
     spendArt() {
         if (this.system.time) {
             const sourceName = this.system.source;
@@ -483,13 +505,13 @@ export class BarrloItem extends Item {
         };
 
         // Render the chat card template
-        const template = `systems/wwn/templates/chat/item-card.html`;
+        const template = 'modules/foundry-wwn-godbound-sheet/scripts/templates/chat/item-card.html';
         const html = await renderTemplate(template, templateData);
 
         // Basic chat message data
         const chatData = {
             user: game.user.id,
-            type: CONST.CHAT_MESSAGE_STYLES.OTHER,
+            type: CONST.CHAT_MESSAGE_STYLES ? CONST.CHAT_MESSAGE_STYLES.OTHER : CONST.CHAT_MESSAGE_TYPES.OTHER,
             content: html,
             speaker: {
                 actor: this.actor.id,

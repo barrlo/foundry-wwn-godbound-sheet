@@ -9,6 +9,7 @@
         <a class="item" data-tab="attributes">
             {{localize "WWN.category.attributes"}}
         </a>
+        <a class="item" data-tab="spells"> {{localize "WWN.category.spells"}} </a>
         <a class="item" data-tab="gifts"> Gifts </a>
         <a class="item" data-tab="inventory">
             {{localize "WWN.category.inventory"}}
@@ -22,8 +23,11 @@
         <div class="tab" data-group="primary" data-tab="attributes">
             {{> "modules/foundry-wwn-godbound-sheet/scripts/templates/actors/partials/character-attributes-tab.html"}}
         </div>
+        <div class="tab" data-group="primary" data-tab="spells">
+            {{> "modules/foundry-wwn-godbound-sheet/scripts/templates/actors/partials/character-spells-tab.html"}}
+        </div>
         <div class="tab" data-group="primary" data-tab="gifts">
-            {{> "modules/foundry-wwn-godbound-sheet/scripts/templates/actors/partials/character-gifts-tab.html"}}
+            {{> "modules/foundry-wwn-godbound-sheet/scripts/templates/actors/partials/character-gifts-tab.hbs"}}
         </div>
         <div class="tab" data-group="primary" data-tab="inventory">
             {{> "modules/foundry-wwn-godbound-sheet/scripts/templates/actors/partials/character-inventory-tab.html"}}
