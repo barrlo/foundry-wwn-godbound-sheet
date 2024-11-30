@@ -26,7 +26,7 @@
                 {{#each system.godbound.gifts.greater as |gift|}}
                     <li class="item-entry">
                         <div class="item flexrow">
-                            <div class="item-name item-rollable flexrow">
+                            <div class="item-name gift-rollable flexrow">
                                 <div class="item-image" style="background-image: url({{img}})"></div>
                                 <a>
                                     <h4 title="{{gift.name}}">
@@ -74,8 +74,8 @@
                 {{#each system.godbound.gifts.lesser as |gift|}}
                     <li class="item-entry">
                         <div class="item flexrow">
-                            <div class="item-name item-rollable flexrow">
-                                <div class="item-image" style="background-image: url({{img}})"></div>
+                            <div class="item-name gift-rollable flexrow">
+                                <div class="item-image" style="background-image: url({{img}})" data-gift-id="{{gift._id}}"></div>
                                 <a>
                                     <h4 title="{{gift.name}}">
                                         {{gift.name~}}
@@ -83,7 +83,7 @@
                                 </a>
                             </div>
                             <div class="field-long artSource">
-                                <input value="{{gift.system.source}}" type="text" placeholder="High Mage"disabled />
+                                <input value="{{gift.system.source}}" type="text" placeholder="Word" disabled />
                             </div>
                             <div class="field-short artEffort">
                                 <input value="{{gift.system.effort}}" type="number" disabled />

@@ -311,6 +311,29 @@ export class BarrloItem extends Item {
         }
     }
 
+    useGift() {
+        if (this.system.time) {
+            const sourceName = this.system.source;
+            if (sourceName === undefined) {
+                return ui.notifications.warn(`Please add class name to the Source field.`);
+            }
+
+            const currEffort = this.system.effort;
+            const sourceVal = this.actor.system.classes[sourceName].value;
+            const sourceMax = this.actor.system.classes[sourceName].max;
+
+            if (sourceVal + 1 > sourceMax) {
+                return ui.notifications.warn('No Effort remaining!');
+            }
+
+            this.update({'system.effort': currEffort + 1}).then(() => {
+                this.show({skipDialog: true});
+            });
+        } else {
+            this.show({skipDialog: true});
+        }
+    }
+
     spendArt() {
         if (this.system.time) {
             const sourceName = this.system.source;

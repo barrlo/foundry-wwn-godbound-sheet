@@ -317,6 +317,11 @@ export class BarrloActorSheetCharacter extends BarrloActorSheet {
             const giftId = evt.currentTarget.dataset.giftId;
             this.actor.deleteEmbeddedDocuments('Item', [giftId]);
         });
+        html.find('.item .gift-rollable .item-image').on('click', evt => {
+            const giftId = evt.currentTarget.dataset.giftId;
+            const gift = this.document.items.get(giftId);
+            gift.useGift();
+        });
         //endregion
 
         html.find('.ability-score .attribute-name a').click(ev => {

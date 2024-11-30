@@ -111,3 +111,12 @@
     min-height: 30px;
     padding: 0 5px;
 }
+
+.wwn.sheet.actor .sheet-body .inventory .item-list .gift-rollable:hover .item-image {
+    background-image: url("/icons/svg/d20-grey.svg") !important;
+    cursor: pointer;
+}
+
+.wwn.sheet.actor .sheet-body .inventory .item-list .gift-rollable .item-image:hover {
+    background-image: url("/icons/svg/d20-black.svg") !important;
+}
