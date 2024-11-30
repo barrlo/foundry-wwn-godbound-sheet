@@ -40,8 +40,7 @@ export class BarrloActorSheet extends ActorSheet {
                     'system.godbound.gifts': gifts
                 });
             } else if (
-                JSON.stringify(this.actor.system.godbound.gifts.greater) !== JSON.stringify(gifts.greater) ||
-                JSON.stringify(this.actor.system.godbound.gifts.lesser) !== JSON.stringify(gifts.lesser)
+                JSON.stringify(this.actor.system.godbound.gifts) !== JSON.stringify(gifts)
             ) {
                 this.actor.update({
                     'system.godbound.gifts': gifts

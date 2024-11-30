@@ -7,7 +7,7 @@
 }
 
 .godbound .project-card {
-    border: 2px solid black;
+    border: 2px solid #252525;
     border-radius: 5px;
     margin: 5px 0;
     padding: 5px 5px 0;
@@ -70,4 +70,29 @@
 
 .godbound .project-card .project-complete-button {
     line-height: 24px;
+}
+
+.godbound.gift-sheet .sheet-header {
+    border-bottom: solid 1px #252525;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+}
+
+.godbound.gift-sheet .gift-field-row {
+    display: grid;
+    grid-template-columns: 266px 266px;
+    margin-bottom: 5px;
+}
+
+.godbound.gift-sheet .gift-field-row input, .godbound.gift-sheet .gift-field-row select {
+    height: 30px;
+}
+
+.godbound.gift-sheet .gift-label {
+    background: #252525;
+    color: whitesmoke;
+    display: block;
+    line-height: 30px;
+    min-height: 30px;
+    padding: 0 5px;
 }

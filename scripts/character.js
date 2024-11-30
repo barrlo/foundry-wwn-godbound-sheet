@@ -218,13 +218,17 @@ export const setGifts = owner => {
     const arts = owner.items.filter(
         item => item.type === 'art' || (item.type === 'item' && item.system.type === 'gift')
     );
-
     arts.forEach(art => art.update({'system.type': 'gift'}));
 
     const greater = arts.filter(art => greaterList.includes(art.name.toLowerCase()) || art.system.isGreater);
     const lesser = arts.filter(art => lesserList.includes(art.name.toLowerCase()) && !art.system.isGreater);
 
-    const pointsSpent = greater.length * 2 + lesser.length;
+    const numberOfExtraWords = owner.system.details.class.split(',').length - 3;
+    let pointsSpent = greater.length * 2 + lesser.length;
+    if (numberOfExtraWords > 0) {
+        pointsSpent += numberOfExtraWords * 3;
+    }
+
     const totalPoints = 6 + (owner.system.details.level - 1) * 2;
     const remainingPoints = totalPoints - pointsSpent;
 

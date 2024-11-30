@@ -14,18 +14,12 @@
             <div class="item-titles flexrow">
                 <div class="item-caret"><i class="fas fa-caret-down"></i></div>
                 <div class="item-name">Greater Gifts</div>
-                <div class="field-long" title="{{localize 'WWN.spells.ArtSourceHint'}}">{{localize
-                    "WWN.spells.ArtSource"}}
-                </div>
-                <div class="field-short" title="{{localize 'WWN.spells.Effort'}}{{localize 'WWN.spells.Committed'}}">
-                    {{localize "WWN.spells.Effort"}}
-                </div>
-                <div class="field-long" title="{{localize 'WWN.spells.TimeHint'}}">{{localize "WWN.spells.Time"}}</div>
+                <div class="field-long" title="Source">Source</div>
+                <div class="field-short" title="Effort Committed">Effort</div>
+                <div class="field-long" title="Time">Time</div>
                 <div class="item-controls">
-                    <a class="item-control effort-reset" title='{{localize "WWN.spells.ResetEffort"}}'><i
-                        class="fas fa-sync"></i></a>
-                    <a id="add-greater-gift-button" class="item-control" data-type="art" title="Add"><i
-                        class="fa fa-plus"></i></a>
+                    <a class="item-control effort-reset" title="Reset Effort"><i class="fas fa-sync"></i></a>
+                    <a id="add-greater-gift-button" class="item-control" title="Add"><i class="fa fa-plus"></i></a>
                 </div>
             </div>
             <ol class="item-list">
@@ -41,10 +35,10 @@
                                 </a>
                             </div>
                             <div class="field-long artSource">
-                                <input value="{{gift.system.source}}" type="text" placeholder="Word" />
+                                <input value="{{gift.system.source}}" type="text" placeholder="Word" disabled />
                             </div>
                             <div class="field-short artEffort">
-                                <input value="{{gift.system.effort}}" type="number" data-dtype="Number" />
+                                <input value="{{gift.system.effort}}" type="number" disabled />
                             </div>
                             <div class="field-long artTime">
                                 <input value="{{gift.system.time}}" type="text" disabled />
@@ -68,20 +62,12 @@
             <div class="item-titles flexrow">
                 <div class="item-caret"><i class="fas fa-caret-down"></i></div>
                 <div class="item-name">Lesser Gifts</div>
-                <div class="field-long" title="{{localize 'WWN.spells.ArtSourceHint'}}">{{localize
-                    "WWN.spells.ArtSource"}}
-                </div>
-                <div class="field-short"
-                     title="{{localize 'WWN.spells.Effort'}}{{localize 'WWN.spells.Committed'}}">
-                    {{localize "WWN.spells.Effort"}}
-                </div>
-                <div class="field-long" title="{{localize 'WWN.spells.TimeHint'}}">{{localize
-                    "WWN.spells.Time"}}</div>
+                <div class="field-long" title="Source">Source</div>
+                <div class="field-short" title="Effort Committed">Effort</div>
+                <div class="field-long" title="Time">Time</div>
                 <div class="item-controls">
-                    <a class="item-control effort-reset" title='{{localize "WWN.spells.ResetEffort"}}'><i
-                        class="fas fa-sync"></i></a>
-                    <a id="add-lesser-gift-button" class="item-control" data-type="art" title="Add"><i
-                        class="fa fa-plus"></i></a>
+                    <a class="item-control effort-reset" title="Reset Effort"><i class="fas fa-sync"></i></a>
+                    <a id="add-lesser-gift-button" class="item-control" title="Add"><i class="fa fa-plus"></i></a>
                 </div>
             </div>
             <ol class="item-list">
@@ -97,10 +83,10 @@
                                 </a>
                             </div>
                             <div class="field-long artSource">
-                                <input value="{{gift.system.source}}" type="text" placeholder="High Mage" />
+                                <input value="{{gift.system.source}}" type="text" placeholder="High Mage"disabled />
                             </div>
                             <div class="field-short artEffort">
-                                <input value="{{gift.system.effort}}" type="number" data-dtype="Number" />
+                                <input value="{{gift.system.effort}}" type="number" disabled />
                             </div>
                             <div class="field-long artTime">
                                 <input value="{{gift.system.time}}" type="text" disabled />
@@ -120,7 +106,3 @@
         </div>
     </div>
 </section>
-    <!--{{#if (evalNor system.spells.artsEnabled system.spells.spellsEnabled)}}-->
-<!--<h4 style="font-size: 18px; padding-top: 30px; text-align: center;">Drag arts or spells from the compendium to get-->
-<!--  started.</h4>-->
-    <!--{{/if}}-->
