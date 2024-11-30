@@ -49,21 +49,20 @@ export class BarrloItem extends Item {
 
         // Item properties
         const props = [];
-        const labels = this.labels;
 
-        if (this.type == 'weapon') {
+        if (this.type === 'weapon') {
             itemData.tags.forEach(t => props.push(t.value));
         }
-        if (this.type == 'spell') {
+        if (this.type === 'spell') {
             props.push(`${itemData.class} ${itemData.lvl}`, itemData.range, itemData.duration);
         }
-        if (itemData.hasOwnProperty('equipped')) {
+        if (itemData.hasOwnProperty('equipped') && this.system.type !== 'gift') {
             props.push(itemData.equipped ? 'Equipped' : 'Not Equipped');
         }
-        if (itemData.hasOwnProperty('stowed')) {
+        if (itemData.hasOwnProperty('stowed')  && this.system.type !== 'gift') {
             props.push(itemData.stowed ? 'Stowed' : 'Not Stowed');
         }
-        if (itemData.hasOwnProperty('prepared')) {
+        if (itemData.hasOwnProperty('prepared')  && this.system.type !== 'gift') {
             props.push(itemData.prepared ? 'Prepared' : 'Not Prepared');
         }
 
@@ -506,7 +505,7 @@ export class BarrloItem extends Item {
         };
 
         // Render the chat card template
-        const template = `systems/wwn/templates/chat/item-card.html`;
+        const template = 'modules/foundry-wwn-godbound-sheet/scripts/templates/chat/item-card.html';
         const html = await renderTemplate(template, templateData);
 
         // Basic chat message data
