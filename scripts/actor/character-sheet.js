@@ -303,19 +303,18 @@ export class BarrloActorSheetCharacter extends BarrloActorSheet {
 
         html.find('#add-greater-gift-button').on('click', evt => onAddGiftClick(evt, this.actor, true));
         html.find('#add-lesser-gift-button').on('click', evt => onAddGiftClick(evt, this.actor, false));
-        html.find('.edit-greater-gift-button').on('click', ev => {
-            const giftName = ev.currentTarget.dataset.giftName;
-            const gift = this.actor.system.godbound.gifts.greater.find(gift => gift.name === giftName);
-            console.log(gift);
+        html.find('.edit-greater-gift-button').on('click', evt => {
+            const giftId = evt.currentTarget.dataset.giftId;
+            const gift = this.actor.items.get(giftId);
             gift.sheet.render(true);
         });
-        html.find('.edit-lesser-gift-button').on('click', ev => {
-            const li = $(ev.currentTarget).parents('.item');
-            const item = this.actor.system.godbound.gifts.lesser.get(li.data('itemId'));
-            item.sheet.render(true);
+        html.find('.edit-lesser-gift-button').on('click', evt => {
+            const giftId = evt.currentTarget.dataset.giftId;
+            const gift = this.actor.items.get(giftId);
+            gift.sheet.render(true);
         });
-        html.find('.delete-gift-button').on('click', ev => {
-            const giftId = ev.currentTarget.dataset.giftId;
+        html.find('.delete-gift-button').on('click', evt => {
+            const giftId = evt.currentTarget.dataset.giftId;
             this.actor.deleteEmbeddedDocuments('Item', [giftId]);
         });
         //endregion

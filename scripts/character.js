@@ -210,16 +210,37 @@ export const setGifts = owner => {
         'inexhaustible hoard',
         'sinews of the serpent',
         'terror of the skies',
-        'whispers of the wyrm'
+        'whispers of the wyrm',
         // skipped: faerie queen, lich king, peak human
+        'new gift'
     ];
 
     const arts = owner.items.filter(
         item => item.type === 'art' || (item.type === 'item' && item.system.type === 'gift')
     );
 
-    const greater = arts.filter(art => greaterList.includes(art.name.toLowerCase()) || art.system.isGreater);
-    const lesser = arts.filter(art => lesserList.includes(art.name.toLowerCase()) || !art.system.isGreater);
+    const greater = arts
+        .filter(art => greaterList.includes(art.name.toLowerCase()) || art.system.isGreater)
+        .map(gift => ({
+            ...gift,
+            id: gift._id,
+            system: {
+                ...gift.system,
+                type: 'gift'
+            },
+            type: 'item'
+        }));
+    const lesser = arts
+        .filter(art => lesserList.includes(art.name.toLowerCase()) && !art.system.isGreater)
+        .map(gift => ({
+            ...gift,
+            id: gift._id,
+            system: {
+                ...gift.system,
+                type: 'gift'
+            },
+            type: 'item'
+        }));
 
     const pointsSpent = greater.length * 2 + lesser.length;
     const totalPoints = 6 + (owner.system.details.level - 1) * 2;
