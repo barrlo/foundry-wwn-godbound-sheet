@@ -100,7 +100,7 @@ export class BarrloActorSheet extends ActorSheet {
     }
 
     async _resetEffort(event) {
-        const arts = this.actor.items.filter(item => item.type === 'art');
+        const arts = this.actor.items.filter(item => item.type === 'art' || item.system.type === 'gift');
         await arts.forEach(art => {
             const itemId = art.id;
             const item = this.actor.items.get(itemId);
