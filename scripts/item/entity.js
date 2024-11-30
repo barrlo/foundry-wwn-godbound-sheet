@@ -319,12 +319,12 @@ export class BarrloItem extends Item {
             }
 
             const currEffort = this.system.effort;
-            const sourceVal = this.actor.system.classes[sourceName].value;
-            const sourceMax = this.actor.system.classes[sourceName].max;
-
-            if (sourceVal + 1 > sourceMax) {
-                return ui.notifications.warn('No Effort remaining!');
-            }
+            // const sourceVal = this.actor.system.classes[sourceName].value;
+            // const sourceMax = this.actor.system.classes[sourceName].max;
+            //
+            // if (sourceVal + 1 > sourceMax) {
+            //     return ui.notifications.warn('No Effort remaining!');
+            // }
 
             this.update({'system.effort': currEffort + 1}).then(() => {
                 this.show({skipDialog: true});
@@ -512,7 +512,7 @@ export class BarrloItem extends Item {
         // Basic chat message data
         const chatData = {
             user: game.user.id,
-            type: CONST.CHAT_MESSAGE_STYLES.OTHER,
+            type: CONST.CHAT_MESSAGE_STYLES ? CONST.CHAT_MESSAGE_STYLES.OTHER : CONST.CHAT_MESSAGE_TYPES.OTHER,
             content: html,
             speaker: {
                 actor: this.actor.id,

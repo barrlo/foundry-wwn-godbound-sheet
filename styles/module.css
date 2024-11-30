@@ -84,7 +84,8 @@
 
 .godbound .sheet-body .inventory.gifts .button {
     cursor: pointer;
-    min-width: 30px;
+    margin-left: 10px;
+    min-width: 20px;
 }
 
 .godbound.gift-sheet .sheet-header {
