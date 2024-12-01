@@ -20,6 +20,7 @@ export class BarrloActorSheet extends ActorSheet {
         if (this.actor.type === 'character') {
             const gifts = setGifts(this.actor);
 
+            // Godbound
             if (!this.actor.system.godbound) {
                 this.actor.update({
                     'system.godbound': {
@@ -28,22 +29,44 @@ export class BarrloActorSheet extends ActorSheet {
                         projects: []
                     }
                 });
-            } else if (!this.actor.system.godbound.gifts) {
+            }
+
+            // Gifts
+            if (!this.actor.system.godbound.gifts) {
                 this.actor.update({
                     'system.godbound': {
                         ...this.actor.system.godbound,
                         gifts
                     }
                 });
-            } else if (Array.isArray(this.actor.system.godbound.gifts)) {
+            }
+            if (Array.isArray(this.actor.system.godbound.gifts)) {
                 this.actor.update({
                     'system.godbound.gifts': gifts
                 });
-            } else if (
+            }
+            if (
                 JSON.stringify(this.actor.system.godbound.gifts) !== JSON.stringify(gifts)
             ) {
                 this.actor.update({
                     'system.godbound.gifts': gifts
+                });
+            }
+
+            // Effort
+            if (!this.actor.system.godbound.effort) {
+                this.actor.update({
+                    'system.godbound': {
+                        ...this.actor.system.godbound,
+                        effort: {
+                            day: 0,
+                            inUse: 0,
+                            remaining: 0,
+                            scene: 0,
+                            total: this.actor.system.details.strain.max,
+                            untilCancelled: 0
+                        }
+                    }
                 });
             }
         }
