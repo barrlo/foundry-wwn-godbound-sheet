@@ -1,6 +1,35 @@
 import {BarrloDice} from './dice.js';
 
-export const setGifts = owner => {
+export const getEffort = (owner, gifts) => {
+    console.log(gifts);
+    const effortGiftFilterFunc = gift => gift.name.toLowerCase().trim().includes('effort of the word');
+    const dayGiftFilterFunc = gift => gift.system.time === 'Day';
+    const sceneGiftFilterFunc = gift => gift.system.time === 'Scene';
+    const untilCancelledGiftFilterFunc = gift => gift.system.time === 'Until Cancelled';
+
+    const effortGifts = gifts.greater.filter(effortGiftFilterFunc).concat(gifts.lesser.filter(effortGiftFilterFunc));
+    const dayGifts = gifts.greater.filter(dayGiftFilterFunc).concat(gifts.lesser.filter(dayGiftFilterFunc));
+    const sceneGifts = gifts.greater.filter(sceneGiftFilterFunc).concat(gifts.lesser.filter(sceneGiftFilterFunc));
+    const untilCancelledGifts = gifts.greater
+        .filter(untilCancelledGiftFilterFunc)
+        .concat(gifts.lesser.filter(untilCancelledGiftFilterFunc));
+
+    const day = dayGifts.filter(gift => gift.system.isInUse).length;
+    const scene = sceneGifts.filter(gift => gift.system.isInUse).length;
+    const untilCancelled = untilCancelledGifts.filter(gift => gift.system.isInUse).length;
+    const total = 2 + (owner.system.details.level - 1) + effortGifts.length;
+    const remaining = total - day - scene - untilCancelled;
+
+    return {
+        day,
+        remaining,
+        scene,
+        total,
+        untilCancelled
+    };
+};
+
+export const getGifts = owner => {
     const greaterList = [
         'all-encompassing presence',
         'faster than thought',
@@ -256,8 +285,8 @@ export const onAddGiftClick = async (event, owner, isGreater) => {
         name: 'New Gift',
         system: {
             description: '',
-            effort: 0,
             isGreater,
+            isInUse: false,
             source: '',
             time: '',
             type: 'gift'

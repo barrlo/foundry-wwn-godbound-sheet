@@ -100,7 +100,7 @@
 
 .godbound .gifts .effort-container {
     border-bottom: solid 1px #252525;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     padding-bottom: 10px;
 }
 
@@ -112,6 +112,16 @@
 
 .godbound .gifts .gift-effort-row div {
     display: flex;
+}
+
+.godbound .gifts .gift-effort-buttons-row {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.godbound .gifts .gift-effort-buttons-row button {
+    margin-left: 10px;
+    max-width: 100px;
 }
 
 .godbound .gifts .gift-effort-row .godbound-label {

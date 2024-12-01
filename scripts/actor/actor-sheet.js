@@ -1,6 +1,6 @@
 import {BarrloActor} from './entity.js';
 import {BarrloEntityTweaks} from '../dialog/entity-tweaks.js';
-import {setGifts} from '../character.js';
+import {getEffort, getGifts} from '../character.js';
 
 export class BarrloActorSheet extends ActorSheet {
     constructor(...args) {
@@ -18,12 +18,14 @@ export class BarrloActorSheet extends ActorSheet {
         data.isNew = this.actor.isNew();
 
         if (this.actor.type === 'character') {
-            const gifts = setGifts(this.actor);
+            const gifts = getGifts(this.actor);
+            const effort = getEffort(this.actor, gifts);
 
             // Godbound
             if (!this.actor.system.godbound) {
                 this.actor.update({
                     'system.godbound': {
+                        effort,
                         frayDice: '1d8',
                         gifts,
                         projects: []
@@ -58,15 +60,15 @@ export class BarrloActorSheet extends ActorSheet {
                 this.actor.update({
                     'system.godbound': {
                         ...this.actor.system.godbound,
-                        effort: {
-                            day: 0,
-                            inUse: 0,
-                            remaining: 0,
-                            scene: 0,
-                            total: this.actor.system.details.strain.max,
-                            untilCancelled: 0
-                        }
+                        effort
                     }
+                });
+            }
+            if (
+                JSON.stringify(this.actor.system.godbound.effort) !== JSON.stringify(effort)
+            ) {
+                this.actor.update({
+                    'system.godbound.effort': effort
                 });
             }
         }
