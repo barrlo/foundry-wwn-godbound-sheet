@@ -2,6 +2,10 @@
     top: 375px;
 }
 
+.wwn.sheet.item {
+    min-width: 600px;
+}
+
 .godbound .add-project-button {
     cursor: pointer;
 }

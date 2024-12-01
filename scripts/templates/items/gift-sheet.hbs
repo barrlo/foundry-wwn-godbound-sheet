@@ -12,8 +12,8 @@
     <section class="sheet-body">
         <label for="gift-description-editor" class="gift-label">Description:</label>
         <div id="gift-description-editor" class="description resizable-editor">
-            {{editor enrichedDescription target="system.description" button=true
-                     owner=owner editable=editable async=true}}
+            {{editor enrichedDescription target="system.description" button=true owner=owner editable=editable
+                     async=true engine="prosemirror"}}
         </div>
         <div class="gift-field-row">
             <div class="flexrow">
