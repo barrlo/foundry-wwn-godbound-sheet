@@ -1,5 +1,5 @@
 <section class="inventory">
-    <div class="item-titles flexrow" data-effect-type="{{section.type}}">
+    <div class="item-titles flexrow">
         <div class="item-name">Projects</div>
         <div class="item-controls">
             <div class="add-project-button">
@@ -11,7 +11,7 @@
         {{#each system.godbound.projects as |project|}}
             <li class="project-card" data-project-id="{{project.id}}">
                 <div class="project-name-row flexrow">
-                    <label for="project-name-input" class="project-label project-name-label">Project Name:</label>
+                    <label for="project-name-input" class="godbound-label project-name-label">Project Name:</label>
                     <input id="project-name-input" class="project-input project-name-input" type="text"
                            value="{{project.name}}" placeholder="project name"
                            {{#unless project.isEditMode}}disabled{{/unless}} />
@@ -24,12 +24,12 @@
                         </div>
                     {{/if}}
                 </div>
-                <label for="project-description-input" class="project-label">Description:</label>
+                <label for="project-description-input" class="godbound-label">Description:</label>
                 <textarea id="project-description-input" class="project-description-input" rows="4" cols="50"
                           {{#unless project.isEditMode}}disabled{{/unless}}>{{project.description}}</textarea>
                 <div class="project-field-row">
                     <div class="flexrow project-difficulty">
-                        <label for="project-difficulty-select" class="project-label">Difficulty:</label>
+                        <label for="project-difficulty-select" class="godbound-label">Difficulty:</label>
                         <select id="project-difficulty-select" class="project-select project-difficulty-select"
                                 {{#unless project.isEditMode}}disabled{{/unless}}>
                             {{#select project.difficulty}}
@@ -41,7 +41,7 @@
                         </select>
                     </div>
                     <div class="flexrow project-scope">
-                        <label for="project-scope-select" class="project-label">Scope:</label>
+                        <label for="project-scope-select" class="godbound-label">Scope:</label>
                         <select id="project-scope-select" class="project-select project-scope-select"
                                 {{#unless project.isEditMode}}disabled{{/unless}}>
                             {{#select project.scope}}
@@ -55,30 +55,30 @@
                         </select>
                     </div>
                     <div class="flexrow">
-                        <label for="project-resistance-input" class="project-label">Resistance:</label>
+                        <label for="project-resistance-input" class="godbound-label">Resistance:</label>
                         <input id="project-resistance-input" class="project-input project-resistance-input"
                                type="number" value="{{project.resistance}}"
                                {{#unless project.isEditMode}}disabled{{/unless}}/>
                     </div>
                     <div class="flexrow">
-                        <label for="project-cost-input" class="project-label">Cost:</label>
+                        <label for="project-cost-input" class="godbound-label">Cost:</label>
                         <input id="project-cost-input" class="project-input" type="number" value="{{project.cost}}"
                                disabled />
                     </div>
                 </div>
                 <div class="project-field-row">
                     <div class="flexrow">
-                        <label for="project-dominion-input" class="project-label">Dominion:</label>
+                        <label for="project-dominion-input" class="godbound-label">Dominion:</label>
                         <input id="project-dominion-input" class="project-input project-dominion-input" type="number"
                                value="{{project.dominion}}" {{#unless project.isEditMode}}disabled{{/unless}}/>
                     </div>
                     <div class="flexrow">
-                        <label for="project-influence-input" class="project-label">Influence:</label>
+                        <label for="project-influence-input" class="godbound-label">Influence:</label>
                         <input id="project-influence-input" class="project-input project-influence-input" type="number"
                                value="{{project.influence}}" {{#unless project.isEditMode}}disabled{{/unless}}/>
                     </div>
                     <div class="flexrow">
-                        <label for="project-remaining-input" class="project-label">Remaining:</label>
+                        <label for="project-remaining-input" class="godbound-label">Remaining:</label>
                         <input id="project-remaining-input" class="project-input" type="number"
                                value="{{project.remaining}}" disabled />
                     </div>
