@@ -295,6 +295,17 @@ export const onAddGiftClick = async (event, owner, isGreater) => {
     owner.createEmbeddedDocuments('Item', [itemData]);
 };
 
+export const onResetEffortClick = (event, owner) => {
+    event.preventDefault();
+
+    const gifts = owner.items.filter(item => item.system.type === 'gift');
+    gifts.forEach(gift => {
+        const itemId = gift.id;
+        const item = owner.items.get(itemId);
+        item.update({'system.isInUse': false});
+    });
+};
+
 export const rollFrayDice = async owner => {
     const rollParts = [owner.system.godbound.frayDice];
     const data = {

@@ -2,7 +2,7 @@ import {BarrloActorSheet} from './actor-sheet.js';
 import {BarrloCharacterModifiers} from '../dialog/character-modifiers.js';
 import {BarrloAdjustCurrency} from '../dialog/adjust-currency.js';
 import {BarrloCharacterCreator} from '../dialog/character-creation.js';
-import {onAddGiftClick, rollFrayDice} from '../character.js';
+import {onAddGiftClick, onResetEffortClick, rollFrayDice} from '../character.js';
 import {onAddProjectClick, onDeleteProjectClick, onEditProjectClick, onProjectInputChange} from '../projects.js';
 
 /**
@@ -327,6 +327,7 @@ export class BarrloActorSheetCharacter extends BarrloActorSheet {
             const gift = this.actor.items.get(giftId);
             gift.resetEffort();
         });
+        html.find('#reset-all-effort-button').on('click', evt => onResetEffortClick(evt, this.actor));
         //endregion
 
         html.find('.ability-score .attribute-name a').click(ev => {

@@ -125,7 +125,7 @@ export class BarrloActorSheet extends ActorSheet {
     }
 
     async _resetEffort(event) {
-        const arts = this.actor.items.filter(item => item.type === 'art' || item.system.type === 'gift');
+        const arts = this.actor.items.filter(item => item.type === 'art');
         await arts.forEach(art => {
             const itemId = art.id;
             const item = this.actor.items.get(itemId);
