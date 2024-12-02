@@ -322,6 +322,11 @@ export class BarrloActorSheetCharacter extends BarrloActorSheet {
             const gift = this.document.items.get(giftId);
             gift.useGift();
         });
+        html.find('.reset-gift-effort-button').on('click', evt => {
+            const giftId = evt.currentTarget.dataset.giftId;
+            const gift = this.actor.items.get(giftId);
+            gift.resetEffort();
+        });
         //endregion
 
         html.find('.ability-score .attribute-name a').click(ev => {

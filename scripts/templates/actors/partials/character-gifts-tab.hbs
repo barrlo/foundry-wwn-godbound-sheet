@@ -54,8 +54,8 @@
                 <div class="field-short" title="Effort Committed">Effort</div>
                 <div class="field-long" title="Time">Time</div>
                 <div class="item-controls">
-                    <div class="item-control effort-reset button" title="Reset Effort"><i class="fas fa-sync"></i></div>
-                    <div id="add-greater-gift-button" class="item-control button" title="Add"><i class="fa fa-plus"></i>
+                    <div id="add-greater-gift-button" class="item-control button" title="Add">
+                        <i class="fa fa-plus"></i>
                     </div>
                 </div>
             </div>
@@ -72,16 +72,21 @@
                                     </h4>
                                 </a>
                             </div>
-                            <div class="field-long artSource">
+                            <div class="field-long">
                                 <input value="{{gift.system.source}}" type="text" placeholder="Word" disabled />
                             </div>
-                            <div class="field-short artEffort">
-                                <input value="{{gift.system.effort}}" type="number" disabled />
+                            <div class="field-short">
+                                <input class="checkbox" type="checkbox"
+                                       {{#if gift.system.isInUse}}checked{{/if}} disabled />
                             </div>
-                            <div class="field-long artTime">
+                            <div class="field-long">
                                 <input value="{{gift.system.time}}" type="text" disabled />
                             </div>
                             <div class="item-controls">
+                                <div class="item-control reset-gift-effort-button button" title="Reset Effort"
+                                     data-gift-id="{{gift._id}}">
+                                    <i class="fas fa-sync"></i>
+                                </div>
                                 <div class="item-control button edit-greater-gift-button" title="Edit"
                                      data-gift-id="{{gift._id}}">
                                     <i class="fas fa-edit"></i>
@@ -106,8 +111,8 @@
                 <div class="field-short" title="Effort Committed">Effort</div>
                 <div class="field-long" title="Time">Time</div>
                 <div class="item-controls">
-                    <div class="item-control effort-reset button" title="Reset Effort"><i class="fas fa-sync"></i></div>
-                    <div id="add-lesser-gift-button" class="item-control button" title="Add"><i class="fa fa-plus"></i>
+                    <div id="add-lesser-gift-button" class="item-control button" title="Add">
+                        <i class="fa fa-plus"></i>
                     </div>
                 </div>
             </div>
@@ -124,16 +129,21 @@
                                     </h4>
                                 </a>
                             </div>
-                            <div class="field-long artSource">
+                            <div class="field-long">
                                 <input value="{{gift.system.source}}" type="text" placeholder="Word" disabled />
                             </div>
-                            <div class="field-short artEffort">
-                                <input value="{{gift.system.effort}}" type="number" disabled />
+                            <div class="field-short">
+                                <input class="checkbox" type="checkbox"
+                                       {{#if gift.system.isInUse}}checked{{/if}} disabled />
                             </div>
-                            <div class="field-long artTime">
+                            <div class="field-long">
                                 <input value="{{gift.system.time}}" type="text" disabled />
                             </div>
                             <div class="item-controls">
+                                <div class="item-control reset-gift-effort-button button" title="Reset Effort"
+                                     data-gift-id="{{gift._id}}">
+                                    <i class="fas fa-sync"></i>
+                                </div>
                                 <div class="item-control button edit-lesser-gift-button" title="Edit"
                                      data-gift-id="{{gift._id}}">
                                     <i class="fas fa-edit"></i>

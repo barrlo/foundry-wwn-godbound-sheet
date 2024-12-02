@@ -1,7 +1,6 @@
 import {BarrloDice} from './dice.js';
 
 export const getEffort = (owner, gifts) => {
-    console.log(gifts);
     const effortGiftFilterFunc = gift => gift.name.toLowerCase().trim().includes('effort of the word');
     const dayGiftFilterFunc = gift => gift.system.time === 'Day';
     const sceneGiftFilterFunc = gift => gift.system.time === 'Scene';

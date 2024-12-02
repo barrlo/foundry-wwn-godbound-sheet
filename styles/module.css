@@ -84,7 +84,7 @@
 
 .sheet .godbound .sheet-body .inventory.gifts .item-controls {
     display: flex;
-    flex-basis: 80px;
+    flex-basis: 90px;
     justify-content: flex-end;
 }
 
@@ -126,6 +126,10 @@
 
 .godbound .gifts .gift-effort-row .godbound-label {
     min-width: 106px;
+}
+
+.godbound .gifts .item-list .checkbox {
+    height: 24px;
 }
 
 .godbound .gifts .gift-points-row {
