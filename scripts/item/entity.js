@@ -59,10 +59,10 @@ export class BarrloItem extends Item {
         if (itemData.hasOwnProperty('equipped') && this.system.type !== 'gift') {
             props.push(itemData.equipped ? 'Equipped' : 'Not Equipped');
         }
-        if (itemData.hasOwnProperty('stowed')  && this.system.type !== 'gift') {
+        if (itemData.hasOwnProperty('stowed') && this.system.type !== 'gift') {
             props.push(itemData.stowed ? 'Stowed' : 'Not Stowed');
         }
-        if (itemData.hasOwnProperty('prepared')  && this.system.type !== 'gift') {
+        if (itemData.hasOwnProperty('prepared') && this.system.type !== 'gift') {
             props.push(itemData.prepared ? 'Prepared' : 'Not Prepared');
         }
 
@@ -311,25 +311,16 @@ export class BarrloItem extends Item {
     }
 
     useGift() {
-        if (this.system.time) {
-            const sourceName = this.system.source;
-            if (sourceName === undefined) {
-                return ui.notifications.warn(`Please add class name to the Source field.`);
-            }
-
-            const currEffort = this.system.effort;
-            // const sourceVal = this.actor.system.classes[sourceName].value;
-            // const sourceMax = this.actor.system.classes[sourceName].max;
-            //
-            // if (sourceVal + 1 > sourceMax) {
-            //     return ui.notifications.warn('No Effort remaining!');
-            // }
-
-            this.update({'system.effort': currEffort + 1}).then(() => {
+        if (!this.system.isInUse && this.actor.system.godbound.effort.remaining > 0) {
+            this.update({'system.isInUse': true}).then(() => {
                 this.show({skipDialog: true});
             });
-        } else {
-            this.show({skipDialog: true});
+        }
+    }
+
+    resetEffort() {
+        if (this.system.isInUse) {
+            this.update({'system.isInUse': false});
         }
     }
 

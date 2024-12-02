@@ -23,7 +23,7 @@
 
 .godbound .project-card .project-field-row {
     display: grid;
-    grid-template-columns: 176px 176px 176px 176px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     margin-bottom: 5px;
 }
 
@@ -36,19 +36,20 @@
     max-width: 40px;
 }
 
-.godbound .project-card .project-label {
+.godbound .godbound-label {
     background: #252525;
     color: whitesmoke;
     display: block;
+    line-height: 30px;
     min-height: 30px;
     padding: 0 5px;
 }
 
-.godbound .project-card .project-label.project-name-label {
+.godbound .project-card .godbound-label.project-name-label {
     max-width: 94px;
 }
 
-.godbound .project-card .project-field-row .project-label {
+.godbound .project-card .project-field-row .godbound-label {
     max-width: 78px;
 }
 
@@ -68,6 +69,7 @@
 
 .godbound .project-card .project-select {
     font-size: 13px;
+    height: 30px;
     margin: 0 3px;
     max-width: 92px;
 }
@@ -82,7 +84,7 @@
 
 .sheet .godbound .sheet-body .inventory.gifts .item-controls {
     display: flex;
-    flex-basis: 80px;
+    flex-basis: 90px;
     justify-content: flex-end;
 }
 
@@ -90,6 +92,49 @@
     cursor: pointer;
     margin-left: 10px;
     min-width: 20px;
+}
+
+.godbound .gifts .header {
+    margin-bottom: 5px;
+}
+
+.godbound .gifts .effort-container {
+    border-bottom: solid 1px #252525;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+
+.godbound .gifts .gift-effort-row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-bottom: 5px;
+}
+
+.godbound .gifts .gift-effort-row div {
+    display: flex;
+}
+
+.godbound .gifts .gift-effort-buttons-row {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.godbound .gifts .gift-effort-buttons-row button {
+    margin-left: 10px;
+    max-width: 100px;
+}
+
+.godbound .gifts .gift-effort-row .godbound-label {
+    min-width: 106px;
+}
+
+.godbound .gifts .item-list .checkbox {
+    height: 24px;
+}
+
+.godbound .gifts .gift-points-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .godbound.gift-sheet .sheet-header {
@@ -100,7 +145,7 @@
 
 .godbound.gift-sheet .gift-field-row {
     display: grid;
-    grid-template-columns: 266px 266px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     margin-bottom: 5px;
 }
 
@@ -108,13 +153,8 @@
     height: 30px;
 }
 
-.godbound.gift-sheet .gift-label {
-    background: #252525;
-    color: whitesmoke;
-    display: block;
-    line-height: 30px;
-    min-height: 30px;
-    padding: 0 5px;
+.godbound.gift-sheet .gift-field-row select {
+    margin-left: 3px;
 }
 
 .wwn.sheet.actor .sheet-body .inventory .item-list .gift-rollable:hover .item-image {

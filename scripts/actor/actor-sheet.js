@@ -1,6 +1,6 @@
 import {BarrloActor} from './entity.js';
 import {BarrloEntityTweaks} from '../dialog/entity-tweaks.js';
-import {setGifts} from '../character.js';
+import {getEffort, getGifts} from '../character.js';
 
 export class BarrloActorSheet extends ActorSheet {
     constructor(...args) {
@@ -18,32 +18,58 @@ export class BarrloActorSheet extends ActorSheet {
         data.isNew = this.actor.isNew();
 
         if (this.actor.type === 'character') {
-            const gifts = setGifts(this.actor);
+            const gifts = getGifts(this.actor);
+            const effort = getEffort(this.actor, gifts);
 
+            // Godbound
             if (!this.actor.system.godbound) {
                 this.actor.update({
                     'system.godbound': {
+                        effort,
                         frayDice: '1d8',
                         gifts,
+                        miracleCount: 0,
                         projects: []
                     }
                 });
-            } else if (!this.actor.system.godbound.gifts) {
+            }
+
+            // Gifts
+            if (!this.actor.system.godbound.gifts) {
                 this.actor.update({
                     'system.godbound': {
                         ...this.actor.system.godbound,
                         gifts
                     }
                 });
-            } else if (Array.isArray(this.actor.system.godbound.gifts)) {
+            }
+            if (Array.isArray(this.actor.system.godbound.gifts)) {
                 this.actor.update({
                     'system.godbound.gifts': gifts
                 });
-            } else if (
+            }
+            if (
                 JSON.stringify(this.actor.system.godbound.gifts) !== JSON.stringify(gifts)
             ) {
                 this.actor.update({
                     'system.godbound.gifts': gifts
+                });
+            }
+
+            // Effort
+            if (!this.actor.system.godbound.effort) {
+                this.actor.update({
+                    'system.godbound': {
+                        ...this.actor.system.godbound,
+                        effort
+                    }
+                });
+            }
+            if (
+                JSON.stringify(this.actor.system.godbound.effort) !== JSON.stringify(effort)
+            ) {
+                this.actor.update({
+                    'system.godbound.effort': effort
                 });
             }
         }
@@ -100,7 +126,7 @@ export class BarrloActorSheet extends ActorSheet {
     }
 
     async _resetEffort(event) {
-        const arts = this.actor.items.filter(item => item.type === 'art' || item.system.type === 'gift');
+        const arts = this.actor.items.filter(item => item.type === 'art');
         await arts.forEach(art => {
             const itemId = art.id;
             const item = this.actor.items.get(itemId);
