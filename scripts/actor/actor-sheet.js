@@ -28,6 +28,7 @@ export class BarrloActorSheet extends ActorSheet {
                         effort,
                         frayDice: '1d8',
                         gifts,
+                        miracleCount: 0,
                         projects: []
                     }
                 });

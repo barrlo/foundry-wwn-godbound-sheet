@@ -13,7 +13,7 @@ export const getEffort = (owner, gifts) => {
         .filter(untilCancelledGiftFilterFunc)
         .concat(gifts.lesser.filter(untilCancelledGiftFilterFunc));
 
-    const day = dayGifts.filter(gift => gift.system.isInUse).length;
+    const day = dayGifts.filter(gift => gift.system.isInUse).length + (owner.system.godbound.miracleCount || 0);
     const scene = sceneGifts.filter(gift => gift.system.isInUse).length;
     const untilCancelled = untilCancelledGifts.filter(gift => gift.system.isInUse).length;
     const total = 2 + (owner.system.details.level - 1) + effortGifts.length;
@@ -295,6 +295,14 @@ export const onAddGiftClick = async (event, owner, isGreater) => {
     owner.createEmbeddedDocuments('Item', [itemData]);
 };
 
+export const onMiracleClick = (event, owner) => {
+    event.preventDefault();
+
+    owner.update({
+        'system.godbound.miracleCount': (owner.system.godbound.miracleCount || 0) + 1
+    });
+};
+
 export const onResetEffortClick = (event, owner) => {
     event.preventDefault();
 
@@ -303,6 +311,10 @@ export const onResetEffortClick = (event, owner) => {
         const itemId = gift.id;
         const item = owner.items.get(itemId);
         item.update({'system.isInUse': false});
+    });
+
+    owner.update({
+        'system.godbound.miracleCount': 0
     });
 };
 
