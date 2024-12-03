@@ -40,7 +40,7 @@
     </li>
     {{/if}}
     <li class="{{#if (gt system.details.xp.value system.details.xp.next)}}notify{{/if}}">
-      <input type="number" name="system.details.level" value="{{system.details.level}}" data-dtype="Number" />
+      <input id="character-level" type="number" name="system.details.level" value="{{system.details.level}}" data-dtype="Number" />
       <label>{{localize 'WWN.details.level'}}</label>
     </li>
     <li>

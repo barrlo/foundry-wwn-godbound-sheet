@@ -32,45 +32,35 @@ export class BarrloActorSheet extends ActorSheet {
                         projects: []
                     }
                 });
-            }
-
-            // Gifts
-            if (!this.actor.system.godbound.gifts) {
-                this.actor.update({
-                    'system.godbound': {
-                        ...this.actor.system.godbound,
-                        gifts
-                    }
-                });
-            }
-            if (Array.isArray(this.actor.system.godbound.gifts)) {
-                this.actor.update({
-                    'system.godbound.gifts': gifts
-                });
-            }
-            if (
-                JSON.stringify(this.actor.system.godbound.gifts) !== JSON.stringify(gifts)
-            ) {
-                this.actor.update({
-                    'system.godbound.gifts': gifts
-                });
-            }
-
-            // Effort
-            if (!this.actor.system.godbound.effort) {
-                this.actor.update({
-                    'system.godbound': {
-                        ...this.actor.system.godbound,
-                        effort
-                    }
-                });
-            }
-            if (
-                JSON.stringify(this.actor.system.godbound.effort) !== JSON.stringify(effort)
-            ) {
-                this.actor.update({
-                    'system.godbound.effort': effort
-                });
+            } else {
+                // Gifts
+                if (
+                    !this.actor.system.godbound.gifts ||
+                    Array.isArray(this.actor.system.godbound.gifts) ||
+                    JSON.stringify(this.actor.system.godbound.gifts) !== JSON.stringify(gifts)
+                ) {
+                    this.actor
+                        .update({
+                            'system.godbound': {
+                                ...this.actor.system.godbound,
+                                gifts
+                            }
+                        })
+                        .then(actor => {
+                            // Effort
+                            if (
+                                !this.actor.system.godbound.effort ||
+                                JSON.stringify(this.actor.system.godbound.effort) !== JSON.stringify(effort)
+                            ) {
+                                this.actor.update({
+                                    'system.godbound': {
+                                        ...this.actor.system.godbound,
+                                        effort
+                                    }
+                                });
+                            }
+                        });
+                }
             }
         }
 

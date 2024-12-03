@@ -2,7 +2,7 @@ import {BarrloActorSheet} from './actor-sheet.js';
 import {BarrloCharacterModifiers} from '../dialog/character-modifiers.js';
 import {BarrloAdjustCurrency} from '../dialog/adjust-currency.js';
 import {BarrloCharacterCreator} from '../dialog/character-creation.js';
-import {onAddGiftClick, onMiracleClick, onResetEffortClick, rollFrayDice} from '../character.js';
+import {onAddGiftClick, onLevelChange, onMiracleClick, onResetEffortClick, rollFrayDice} from '../character.js';
 import {onAddProjectClick, onDeleteProjectClick, onEditProjectClick, onProjectInputChange} from '../projects.js';
 
 /**
@@ -282,6 +282,13 @@ export class BarrloActorSheetCharacter extends BarrloActorSheet {
 
         //region Godbound
         // have to use classes for these for now because using IDs seems to only apply it to the first one found
+        html.find('#character-level').on('change', async evt => {
+            await onLevelChange(this.actor, Number.parseInt(evt.target.value));
+        });
+        html.find('#fray-dice-roll').on('click', async () => {
+            await rollFrayDice(this.actor);
+        });
+
         html.find('.add-project-button').on('click', evt => onAddProjectClick(evt, this.actor));
         html.find('.edit-project-button').on('click', evt => onEditProjectClick(evt, this.actor));
         html.find('.delete-project-button').on('click', evt => onDeleteProjectClick(evt, this.actor));
@@ -296,10 +303,6 @@ export class BarrloActorSheetCharacter extends BarrloActorSheet {
         html.find('.project-resistance-input').on('change', evt => onProjectInputChange(evt, this.actor, 'resistance'));
         html.find('.project-dominion-input').on('change', evt => onProjectInputChange(evt, this.actor, 'dominion'));
         html.find('.project-influence-input').on('change', evt => onProjectInputChange(evt, this.actor, 'influence'));
-
-        html.find('#fray-dice-roll').on('click', async () => {
-            await rollFrayDice(this.actor);
-        });
 
         html.find('#add-greater-gift-button').on('click', evt => onAddGiftClick(evt, this.actor, true));
         html.find('#add-lesser-gift-button').on('click', evt => onAddGiftClick(evt, this.actor, false));
@@ -321,6 +324,11 @@ export class BarrloActorSheetCharacter extends BarrloActorSheet {
             const giftId = evt.currentTarget.dataset.giftId;
             const gift = this.document.items.get(giftId);
             gift.useGift();
+        });
+        html.find('.apotheosis-gift-name').on('click', evt => {
+            const giftId = evt.currentTarget.dataset.giftId;
+            const gift = this.document.items.get(giftId);
+            gift.show({skipDialog: true});
         });
         html.find('.reset-gift-effort-button').on('click', evt => {
             const giftId = evt.currentTarget.dataset.giftId;

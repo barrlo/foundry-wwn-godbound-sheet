@@ -159,4 +159,32 @@
             </ol>
         </div>
     </div>
+    <div class="flexrow">
+        <div class="flex2">
+            <div class="item-titles flexrow">
+                <div class="item-caret"><i class="fas fa-caret-down"></i></div>
+                <div class="item-name">Apotheosis Gifts</div>
+            </div>
+            <ol class="item-list">
+                {{#each system.godbound.gifts.apotheosis as |gift|}}
+                    <li class="item-entry">
+                        <div class="item flexrow">
+                            <div class="item-name flexrow">
+                                <div class="item-image" style="background-image: url({{img}})"></div>
+                                    <h4 class="apotheosis-gift-name" title="{{gift.name}}">
+                                        {{gift.name~}}
+                                    </h4>
+                            </div>
+                            <div class="item-controls">
+                                <div class="item-control button edit-lesser-gift-button" title="Edit"
+                                     data-gift-id="{{gift._id}}">
+                                    <i class="fas fa-edit"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                {{/each}}
+            </ol>
+        </div>
+    </div>
 </section>

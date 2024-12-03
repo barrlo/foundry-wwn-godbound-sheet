@@ -13,13 +13,16 @@ export const getEffort = (owner, gifts) => {
         .filter(untilCancelledGiftFilterFunc)
         .concat(gifts.lesser.filter(untilCancelledGiftFilterFunc));
 
-    const day = dayGifts.filter(gift => gift.system.isInUse).length + (owner.system.godbound.miracleCount || 0);
+    const day =
+        dayGifts.filter(gift => gift.system.isInUse).length +
+        (owner.system.godbound ? owner.system.godbound.miracleCount || 0 : 0);
     const scene = sceneGifts.filter(gift => gift.system.isInUse).length;
     const untilCancelled = untilCancelledGifts.filter(gift => gift.system.isInUse).length;
     const total = 2 + (owner.system.details.level - 1) + effortGifts.length;
     const remaining = total - day - scene - untilCancelled;
 
     return {
+        ...owner.system.godbound.effort,
         day,
         remaining,
         scene,
@@ -242,6 +245,16 @@ export const getGifts = owner => {
         // skipped: faerie queen, lich king, peak human
         'new gift'
     ];
+    const apotheosisList = [
+        'receive the incense of faith',
+        'sanctify shrine',
+        'smite the apostate',
+        'hear prayer',
+        'perceive the petitioner',
+        'mark of the prophet',
+        'attend the faithful',
+        'to bless the nations'
+    ];
 
     const arts = owner.items.filter(
         item => item.type === 'art' || (item.type === 'item' && item.system.type === 'gift')
@@ -259,6 +272,7 @@ export const getGifts = owner => {
             (lesserList.includes(art.name.toLowerCase().trim()) && !art.system.isGreater) ||
             art.name.toLowerCase().trim().includes(' - lesser')
     );
+    const apotheosis = arts.filter(art => apotheosisList.includes(art.name.toLowerCase().trim()));
 
     const numberOfExtraWords = owner.system.details.class.split(',').length - 3;
     let pointsSpent = greater.length * 2 + lesser.length;
@@ -270,6 +284,8 @@ export const getGifts = owner => {
     const remainingPoints = totalPoints - pointsSpent;
 
     return {
+        ...owner.system.godbound.gifts,
+        apotheosis,
         greater,
         lesser,
         remainingPoints,
@@ -293,6 +309,196 @@ export const onAddGiftClick = async (event, owner, isGreater) => {
         type: 'item'
     };
     owner.createEmbeddedDocuments('Item', [itemData]);
+};
+
+export const onLevelChange = async (owner, level) => {
+    const apotheosisGifts = owner.system.godbound.gifts.apotheosis || [];
+    const receiveTheIncenseOfFaith = apotheosisGifts.find(
+        gift => gift.name.toLowerCase().trim() === 'receive the incense of faith'
+    );
+    const sanctifyShrine = apotheosisGifts.find(gift => gift.name.toLowerCase().trim() === 'sanctify shrine');
+    const smiteTheApostate = apotheosisGifts.find(gift => gift.name.toLowerCase().trim() === 'smite the apostate');
+    const hearPrayer = apotheosisGifts.find(gift => gift.name.toLowerCase().trim() === 'hear prayer');
+    const perceiveThePetitioner = apotheosisGifts.find(
+        gift => gift.name.toLowerCase().trim() === 'perceive the petitioner'
+    );
+    const markOfTheProphet = apotheosisGifts.find(gift => gift.name.toLowerCase().trim() === 'mark of the prophet');
+    const attendTheFaithful = apotheosisGifts.find(gift => gift.name.toLowerCase().trim() === 'attend the faithful');
+    const toBlessTheNations = apotheosisGifts.find(gift => gift.name.toLowerCase().trim() === 'to bless the nations');
+
+    if (level >= 2 && !receiveTheIncenseOfFaith) {
+        const description =
+            'Gained at second level, the Godbound becomes capable of receiving worship from mortal believers and can begin forming their own cult.';
+        const itemData = {
+            name: 'Receive the Incense of Faith',
+            system: {
+                description,
+                enrichedDescription: await TextEditor.enrichHTML(description, {async: true}),
+                isGreater: false,
+                isInUse: false,
+                source: 'Apotheosis',
+                time: 'Permanent',
+                type: 'gift'
+            },
+            type: 'item'
+        };
+        await owner.createEmbeddedDocuments('Item', [itemData]);
+    } else if (level < 2 && receiveTheIncenseOfFaith) {
+        await owner.deleteEmbeddedDocuments('Item', [receiveTheIncenseOfFaith._id]);
+    }
+
+    if (level >= 3) {
+        if (!sanctifyShrine) {
+            const description =
+                "Gained at third level, the Godbound's worshipers can now sanctify temples and shrines to their deity. When properly consecrated, the Godbound can choose to perceive anything going on within their precincts, though they must intentionally choose to watch. They can target a gift or miracle at any person within the sacred grounds at the usual costs in Effort. Such a marvel is free the first time the Godbound so acts in a day, but each successive wonder requires the Godbound to Commit Effort for the day. Properly sanctifying a shrine requires rites and components costing Wealth equal to the Godbound's level, with increases in their level requiring additional expenditures. If the shrine is desecrated, it must be reconsecrated at the full cost.";
+            const itemData = {
+                name: 'Sanctify Shrine',
+                system: {
+                    description,
+                    enrichedDescription: await TextEditor.enrichHTML(description, {async: true}),
+                    isGreater: false,
+                    isInUse: false,
+                    source: 'Apotheosis',
+                    time: 'Permanent',
+                    type: 'gift'
+                },
+                type: 'item'
+            };
+            await owner.createEmbeddedDocuments('Item', [itemData]);
+        }
+
+        if (!smiteTheApostate) {
+            const description =
+                'Also at third level, the Godbound can instantly kill an offending worshiper or afflict them with some debilitating suffering appropriate to their Words. This torment lasts as long as the Godbound desires. If another god accepts the worshiper, however, the curse is lifted.';
+            const itemData = {
+                name: 'Smite the Apostate',
+                system: {
+                    description,
+                    enrichedDescription: await TextEditor.enrichHTML(description, {async: true}),
+                    isGreater: false,
+                    isInUse: false,
+                    source: 'Apotheosis',
+                    time: 'Permanent',
+                    type: 'gift'
+                },
+                type: 'item'
+            };
+            await owner.createEmbeddedDocuments('Item', [itemData]);
+        }
+    } else if (level < 3) {
+        if (sanctifyShrine) {
+            await owner.deleteEmbeddedDocuments('Item', [sanctifyShrine._id]);
+        }
+
+        if (smiteTheApostate) {
+            await owner.deleteEmbeddedDocuments('Item', [smiteTheApostate._id]);
+        }
+    }
+
+    if (level >= 4 && !hearPrayer) {
+        const description =
+            'At fourth level, the Godbound is capable of hearing the prayers of their faithful. These usually are a subconscious sussurus of petitions, but they can specifically “listen” for particular topics or people if they wish, becoming alerted when those topics arise or those people address them. The Godbound can communicate with their faithful during their prayers, though this inward voice is subtle and does not compel obedience.';
+        const itemData = {
+            name: 'Hear Prayer',
+            system: {
+                description,
+                enrichedDescription: await TextEditor.enrichHTML(description, {async: true}),
+                isGreater: false,
+                isInUse: false,
+                source: 'Apotheosis',
+                time: 'Permanent',
+                type: 'gift'
+            },
+            type: 'item'
+        };
+        await owner.createEmbeddedDocuments('Item', [itemData]);
+    } else if (level < 2 && hearPrayer) {
+        await owner.deleteEmbeddedDocuments('Item', [hearPrayer._id]);
+    }
+
+    if (level >= 5 && !perceiveThePetitioner) {
+        const description =
+            "At fifth level, the Godbound can see a particular worshiper and their surroundings with an action's focus, knowing everything about their immediate situation that the worshiper knows. This doesn't grant deep or subtle knowledge of the situation, but it's enough to make their current circumstances clear.";
+        const itemData = {
+            name: 'Perceive the Petitioner',
+            system: {
+                description,
+                enrichedDescription: await TextEditor.enrichHTML(description, {async: true}),
+                isGreater: false,
+                isInUse: false,
+                source: 'Apotheosis',
+                time: 'Permanent',
+                type: 'gift'
+            },
+            type: 'item'
+        };
+        await owner.createEmbeddedDocuments('Item', [itemData]);
+    } else if (level < 2 && perceiveThePetitioner) {
+        await owner.deleteEmbeddedDocuments('Item', [perceiveThePetitioner._id]);
+    }
+
+    if (level >= 6 && !markOfTheProphet) {
+        const description =
+            "At sixth level, the Godbound can consecrate specific worshipers as favored disciples or high priests. One disciple may be chosen for each level of the Godbound, but only one high pontiff can be chosen. If you've access to the deluxe version of Godbound and the mortal creation rules, the disciples instantly become heroic mortals of a level equal to half their patron's level, rounded up and the high priest becomes a heroic mortal of the Godbound's level. Both usually take talents reflective of their patron's portfolio, including a gift or two. If the mortal hero rules are unavailable, treat the disciples as Skilled Mages or Major Heroes from the mortal section of the bestiary chapter, and the high priest as a lesser Eldritch. This consecrating process takes only a moment, but the consecration cannot be taken from the acolyte until they are dead, even if they later leave their god's service.";
+        const itemData = {
+            name: 'Mark of the Prophet',
+            system: {
+                description,
+                enrichedDescription: await TextEditor.enrichHTML(description, {async: true}),
+                isGreater: false,
+                isInUse: false,
+                source: 'Apotheosis',
+                time: 'Permanent',
+                type: 'gift'
+            },
+            type: 'item'
+        };
+        await owner.createEmbeddedDocuments('Item', [itemData]);
+    } else if (level < 2 && markOfTheProphet) {
+        await owner.deleteEmbeddedDocuments('Item', [markOfTheProphet._id]);
+    }
+
+    if (level >= 7 && !attendTheFaithful) {
+        const description =
+            'At seventh level, the Godbound can manifest before a praying worshiper, instantly appearing before them no matter how far away the divinity may be, even from a distant realm. This manifestation lasts no longer than a scene, however, before the Godbound returns to their original location and cannot use this gift again for a day.';
+        const itemData = {
+            name: 'Attend the Faithful',
+            system: {
+                description,
+                enrichedDescription: await TextEditor.enrichHTML(description, {async: true}),
+                isGreater: false,
+                isInUse: false,
+                source: 'Apotheosis',
+                time: 'Permanent',
+                type: 'gift'
+            },
+            type: 'item'
+        };
+        await owner.createEmbeddedDocuments('Item', [itemData]);
+    } else if (level < 2 && attendTheFaithful) {
+        await owner.deleteEmbeddedDocuments('Item', [attendTheFaithful._id]);
+    }
+
+    if (level >= 8 && !toBlessTheNations) {
+        const description =
+            "At eighth level the Godbound can selectively bless or blight the fortunes of a faction that contains a substantial number of their followers. If the faction has a number of worshipers present equal in number to a group of one Power size smaller, the Godbound can selectively add or subtract 2 from any action die roll they take. Thus, if a city of Power 2 had a Power 1 village's worth of faithful among them, they would be subject to the Godbound's influence. The Godbound must be aware of the effort the faction is making to influence the roll, but usually only the most subtle and secretive actions can escape the notice of such a large number of worshipers and their prayers.";
+        const itemData = {
+            name: 'To Bless the Nations',
+            system: {
+                description,
+                enrichedDescription: await TextEditor.enrichHTML(description, {async: true}),
+                isGreater: false,
+                isInUse: false,
+                source: 'Apotheosis',
+                time: 'Permanent',
+                type: 'gift'
+            },
+            type: 'item'
+        };
+        await owner.createEmbeddedDocuments('Item', [itemData]);
+    } else if (level < 2 && toBlessTheNations) {
+        await owner.deleteEmbeddedDocuments('Item', [toBlessTheNations._id]);
+    }
 };
 
 export const onMiracleClick = (event, owner) => {
