@@ -312,6 +312,8 @@ export const onAddGiftClick = async (event, owner, isGreater) => {
 };
 
 export const onLevelChange = async (owner, level) => {
+    await owner.update({'system.thac0.bba': level});
+
     const apotheosisGifts = owner.system.godbound.gifts.apotheosis || [];
     const receiveTheIncenseOfFaith = apotheosisGifts.find(
         gift => gift.name.toLowerCase().trim() === 'receive the incense of faith'
