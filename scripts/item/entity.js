@@ -311,7 +311,7 @@ export class BarrloItem extends Item {
     }
 
     useGift() {
-        if (!this.system.isInUse && this.actor.system.godbound.effort.remaining > 0) {
+        if (this.actor.system.godbound.effort.remaining > 0) {
             this.update({'system.isInUse': true}).then(() => {
                 this.show({skipDialog: true});
             });
