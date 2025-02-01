@@ -163,6 +163,63 @@
         <div class="flex2">
             <div class="item-titles flexrow">
                 <div class="item-caret"><i class="fas fa-caret-down"></i></div>
+                <div class="item-name">Free Gifts</div>
+                <div class="field-long" title="Source">Source</div>
+                <div class="field-short" title="Effort Committed">Effort</div>
+                <div class="field-long" title="Time">Time</div>
+                <div class="item-controls">
+                    <div id="add-free-gift-button" class="item-control button" title="Add">
+                        <i class="fa fa-plus"></i>
+                    </div>
+                </div>
+            </div>
+            <ol class="item-list">
+                {{#each system.godbound.gifts.free as |gift|}}
+                    <li class="item-entry">
+                        <div class="item flexrow">
+                            <div class="item-name gift-rollable flexrow">
+                                <div class="item-image" style="background-image: url({{img}})"
+                                     data-gift-id="{{gift._id}}"></div>
+                                <a>
+                                    <h4 title="{{gift.name}}">
+                                        {{gift.name~}}
+                                    </h4>
+                                </a>
+                            </div>
+                            <div class="field-long">
+                                <input value="{{gift.system.source}}" type="text" placeholder="Word" disabled />
+                            </div>
+                            <div class="field-short">
+                                <input class="checkbox" type="checkbox"
+                                       {{#if gift.system.isInUse}}checked{{/if}} disabled />
+                            </div>
+                            <div class="field-long">
+                                <input value="{{gift.system.time}}" type="text" disabled />
+                            </div>
+                            <div class="item-controls">
+                                <div class="item-control reset-gift-effort-button button" title="Reset Effort"
+                                     data-gift-id="{{gift._id}}">
+                                    <i class="fas fa-sync"></i>
+                                </div>
+                                <div class="item-control button edit-lesser-gift-button" title="Edit"
+                                     data-gift-id="{{gift._id}}">
+                                    <i class="fas fa-edit"></i>
+                                </div>
+                                <div class="item-control button delete-gift-button" title="Delete"
+                                     data-gift-id="{{gift._id}}">
+                                    <i class="fas fa-trash"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                {{/each}}
+            </ol>
+        </div>
+    </div>
+    <div class="flexrow">
+        <div class="flex2">
+            <div class="item-titles flexrow">
+                <div class="item-caret"><i class="fas fa-caret-down"></i></div>
                 <div class="item-name">Apotheosis Gifts</div>
             </div>
             <ol class="item-list">

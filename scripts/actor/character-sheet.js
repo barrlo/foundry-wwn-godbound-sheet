@@ -304,8 +304,9 @@ export class BarrloActorSheetCharacter extends BarrloActorSheet {
         html.find('.project-dominion-input').on('change', evt => onProjectInputChange(evt, this.actor, 'dominion'));
         html.find('.project-influence-input').on('change', evt => onProjectInputChange(evt, this.actor, 'influence'));
 
-        html.find('#add-greater-gift-button').on('click', evt => onAddGiftClick(evt, this.actor, true));
-        html.find('#add-lesser-gift-button').on('click', evt => onAddGiftClick(evt, this.actor, false));
+        html.find('#add-greater-gift-button').on('click', evt => onAddGiftClick(evt, this.actor, true, false));
+        html.find('#add-lesser-gift-button').on('click', evt => onAddGiftClick(evt, this.actor, false, false));
+        html.find('#add-free-gift-button').on('click', evt => onAddGiftClick(evt, this.actor, false, true));
         html.find('.edit-greater-gift-button').on('click', evt => {
             const giftId = evt.currentTarget.dataset.giftId;
             const gift = this.actor.items.get(giftId);

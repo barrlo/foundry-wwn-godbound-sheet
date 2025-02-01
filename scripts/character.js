@@ -6,7 +6,10 @@ export const getEffort = (owner, gifts) => {
     const sceneGiftFilterFunc = gift => gift.system.time === 'Scene';
     const untilCancelledGiftFilterFunc = gift => gift.system.time === 'Until Cancelled';
 
-    const effortGifts = gifts.greater.filter(effortGiftFilterFunc).concat(gifts.lesser.filter(effortGiftFilterFunc));
+    const effortGifts = gifts.greater
+        .filter(effortGiftFilterFunc)
+        .concat(gifts.lesser.filter(effortGiftFilterFunc))
+        .concat(gifts.free.filter(effortGiftFilterFunc));
     const dayGifts = gifts.greater.filter(dayGiftFilterFunc).concat(gifts.lesser.filter(dayGiftFilterFunc));
     const sceneGifts = gifts.greater.filter(sceneGiftFilterFunc).concat(gifts.lesser.filter(sceneGiftFilterFunc));
     const untilCancelledGifts = gifts.greater
@@ -269,10 +272,11 @@ export const getGifts = owner => {
     );
     const lesser = arts.filter(
         art =>
-            (lesserList.includes(art.name.toLowerCase().trim()) && !art.system.isGreater) ||
+            (lesserList.includes(art.name.toLowerCase().trim()) && !art.system.isGreater && !art.system.isFree) ||
             art.name.toLowerCase().trim().includes(' - lesser')
     );
     const apotheosis = arts.filter(art => apotheosisList.includes(art.name.toLowerCase().trim()));
+    const free = arts.filter(art => art.system.isFree);
 
     const numberOfExtraWords = owner.system.details.class.split(',').length - 3;
     let pointsSpent = greater.length * 2 + lesser.length;
@@ -286,6 +290,7 @@ export const getGifts = owner => {
     return {
         ...owner.system.godbound.gifts,
         apotheosis,
+        free,
         greater,
         lesser,
         remainingPoints,
@@ -293,13 +298,14 @@ export const getGifts = owner => {
     };
 };
 
-export const onAddGiftClick = async (event, owner, isGreater) => {
+export const onAddGiftClick = async (event, owner, isGreater, isFree) => {
     event.preventDefault();
 
     const itemData = {
         name: 'New Gift',
         system: {
             description: '',
+            isFree,
             isGreater,
             isInUse: false,
             source: '',
@@ -308,7 +314,7 @@ export const onAddGiftClick = async (event, owner, isGreater) => {
         },
         type: 'item'
     };
-    owner.createEmbeddedDocuments('Item', [itemData]);
+    await owner.createEmbeddedDocuments('Item', [itemData]);
 };
 
 export const onLevelChange = async (owner, level) => {
@@ -336,6 +342,7 @@ export const onLevelChange = async (owner, level) => {
             system: {
                 description,
                 enrichedDescription: await TextEditor.enrichHTML(description, {async: true}),
+                isFree: false,
                 isGreater: false,
                 isInUse: false,
                 source: 'Apotheosis',
@@ -358,6 +365,7 @@ export const onLevelChange = async (owner, level) => {
                 system: {
                     description,
                     enrichedDescription: await TextEditor.enrichHTML(description, {async: true}),
+                    isFree: false,
                     isGreater: false,
                     isInUse: false,
                     source: 'Apotheosis',
@@ -377,6 +385,7 @@ export const onLevelChange = async (owner, level) => {
                 system: {
                     description,
                     enrichedDescription: await TextEditor.enrichHTML(description, {async: true}),
+                    isFree: false,
                     isGreater: false,
                     isInUse: false,
                     source: 'Apotheosis',
@@ -405,6 +414,7 @@ export const onLevelChange = async (owner, level) => {
             system: {
                 description,
                 enrichedDescription: await TextEditor.enrichHTML(description, {async: true}),
+                isFree: false,
                 isGreater: false,
                 isInUse: false,
                 source: 'Apotheosis',
@@ -426,6 +436,7 @@ export const onLevelChange = async (owner, level) => {
             system: {
                 description,
                 enrichedDescription: await TextEditor.enrichHTML(description, {async: true}),
+                isFree: false,
                 isGreater: false,
                 isInUse: false,
                 source: 'Apotheosis',
@@ -447,6 +458,7 @@ export const onLevelChange = async (owner, level) => {
             system: {
                 description,
                 enrichedDescription: await TextEditor.enrichHTML(description, {async: true}),
+                isFree: false,
                 isGreater: false,
                 isInUse: false,
                 source: 'Apotheosis',
@@ -468,6 +480,7 @@ export const onLevelChange = async (owner, level) => {
             system: {
                 description,
                 enrichedDescription: await TextEditor.enrichHTML(description, {async: true}),
+                isFree: false,
                 isGreater: false,
                 isInUse: false,
                 source: 'Apotheosis',
@@ -489,6 +502,7 @@ export const onLevelChange = async (owner, level) => {
             system: {
                 description,
                 enrichedDescription: await TextEditor.enrichHTML(description, {async: true}),
+                isFree: false,
                 isGreater: false,
                 isInUse: false,
                 source: 'Apotheosis',
