@@ -33,12 +33,15 @@ export class BarrloActorSheet extends ActorSheet {
                     }
                 });
             } else {
-                // Gifts
-                if (
+                const giftsAreDifferent =
                     !this.actor.system.godbound.gifts ||
                     Array.isArray(this.actor.system.godbound.gifts) ||
-                    JSON.stringify(this.actor.system.godbound.gifts) !== JSON.stringify(gifts)
-                ) {
+                    JSON.stringify(this.actor.system.godbound.gifts) !== JSON.stringify(gifts);
+                const effortIsDifferent =
+                    !this.actor.system.godbound.effort ||
+                    JSON.stringify(this.actor.system.godbound.effort) !== JSON.stringify(effort);
+                // Gifts
+                if (giftsAreDifferent || effortIsDifferent) {
                     this.actor
                         .update({
                             'system.godbound': {
@@ -48,17 +51,12 @@ export class BarrloActorSheet extends ActorSheet {
                         })
                         .then(actor => {
                             // Effort
-                            if (
-                                !this.actor.system.godbound.effort ||
-                                JSON.stringify(this.actor.system.godbound.effort) !== JSON.stringify(effort)
-                            ) {
-                                this.actor.update({
-                                    'system.godbound': {
-                                        ...this.actor.system.godbound,
-                                        effort
-                                    }
-                                });
-                            }
+                            this.actor.update({
+                                'system.godbound': {
+                                    ...this.actor.system.godbound,
+                                    effort
+                                }
+                            });
                         });
                 }
             }
